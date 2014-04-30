@@ -36,3 +36,39 @@ void Matrix::deallocate(){
 	delete[] matrix;
 
 }
+
+int Matrix::rows() const{
+	return nrows;
+}
+
+int Matrix::cols() const{
+	return ncols;
+}
+Matrix Matrix::multiply(const Matrix &a, const Matrix &b){
+
+	if(a.cols() != b.rows())
+		throw "Matrix dimensions are not compatible for multiplication";
+	
+	Matrix c(a.rows(), b.cols());
+
+	return c;
+
+}
+
+Matrix Matrix::add(const Matrix &a, const Matrix &b) {
+
+	if((a.cols() != b.cols()) && (a.rows() != b.rows()))
+		throw "Matrix dimensions are not compatible for addition";
+
+}
+Matrix Matrix::operator * (const Matrix &b) {
+
+	multiply(*this, b);
+}
+
+Matrix Matrix::operator + (const Matrix &b) {
+
+	add(*this, b);
+}
+
+
