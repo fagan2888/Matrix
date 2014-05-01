@@ -1,10 +1,8 @@
 #CPP Makefile Joshi Cpp
 
 CXX:=g++-4.8
-CC:=gcc-4.8
-INCLUDE:=
-CXXFLAGS:=-fPIC -std=c++11
-CFLAGS:=
+DBG:=#-DDBG
+CXXFLAGS:=-fPIC -std=c++11 $(DBG)
 LDFLAGS:=-shared
 OPTS:=-O2
 

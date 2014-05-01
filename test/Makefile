@@ -1,20 +1,23 @@
 include ../make.inc
 
-TARGET:=../bin/testing
-
+ADD:=add
+GETSET:=getset
 LIB:=-lMatrix
 LIBDIR:=-L../lib
 INCLUDE:=-I../include
-
-SRC_CXX:=main.cpp
+LDFLAGS:=
+SRC_CXX:=getsetelements.cpp
 OBJS_CXX:=$(patsubst %.cpp,%.cpp.o,$(SRC_CXX))
 OBJS:=$(OBJS_CXX)
 
-all: $(TARGET)
-
-$(TARGET): $(OBJS)
+ALL=$(GETSET)
+all:$(ALL)
+	
+$(ALL): $(OBJS)
 	$(CXX) -o $@ $< $(LIBDIR) $(LIB)
 
 $(OBJS): $(SRC_CXX)
-	$(CXX) $(CFLAGS) $(CXXFLAGS) $(OPTS) $(INCLUDE) -o $@ -c $<
+	$(CXX) $(CXXFLAGS) $(OPTS) $(INCLUDE) -o $@ -c $<
 
+clean:
+	rm $(OBJS) $(ADD)

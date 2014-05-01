@@ -2,7 +2,7 @@
 #define __INSTRUMENT__
 
 #include<string>
-
+#include<exception>
 class Matrix{
 	
 
@@ -20,6 +20,8 @@ class Matrix{
 		~Matrix();
 		static Matrix multiply(const Matrix &a, const Matrix &b);
 		static Matrix add(const Matrix &a, const Matrix &b);
+		double &Set(int row, int col);
+		double Get(int row, int col);
 		int rows() const;
 		int cols() const;
 		Matrix operator * (const Matrix &b);
