@@ -1,7 +1,7 @@
 #include<iostream>
 #include<Matrix.hpp>
 
-Matrix::Matrix(){
+template<class T>Matrix<T>::Matrix(){
 
 #ifdef DBG
 	std::cout << "Constructing Matrix" << std::endl;
@@ -9,10 +9,9 @@ Matrix::Matrix(){
 	nrows = 1;
 	ncols = 1;
 	allocate();
-
 }
 
-Matrix::Matrix(int nrows_, int ncols_) {
+template<class T>Matrix<T>::Matrix(int nrows_, int ncols_) {
 
 	nrows = nrows_;
 	ncols = ncols_;
@@ -20,7 +19,7 @@ Matrix::Matrix(int nrows_, int ncols_) {
 
 }
 
-Matrix::~Matrix(){
+template<class T>Matrix<T>::~Matrix(){
 
 #ifdef DBG
 	std::cout << "De-constructing Matrix" << std::endl;
@@ -29,32 +28,34 @@ Matrix::~Matrix(){
 
 }
 
-void Matrix::allocate(){
 
-	matrix = new double[nrows * ncols];
+
+template<class T> void Matrix<T>::allocate(){
+
+	matrix = new T[nrows * ncols];
 
 }
 
-void Matrix::deallocate(){
+template<class T> void Matrix<T>::deallocate(){
 	
 	delete[] matrix;
 
 }
 
-int Matrix::rows() const{
+template<class T> int Matrix<T>::rows() const{
 	return nrows;
 }
 
-int Matrix::cols() const{
+template<class T> int Matrix<T>::cols() const{
 	return ncols;
 }
 
-double& Matrix::Set(int i, int j){
+template<class T> T& Matrix<T>::Set(int i, int j){
 
 	return *(matrix + i * ncols + j);
 }
 
-double Matrix::Get(int i, int j) {
+template<class T> T Matrix<T>::Get(int i, int j) {
 
 	if(i < 0 || j < 0)
 		throw "Elements cannot be less than 0";
@@ -62,7 +63,8 @@ double Matrix::Get(int i, int j) {
 	return matrix[i * ncols + j];
 
 }
-Matrix Matrix::multiply(const Matrix &a, const Matrix &b){
+
+template<class T> Matrix<T> Matrix<T>::multiply(const Matrix &a, const Matrix &b){
 
 	if(a.cols() != b.rows())
 		throw "Matrix dimensions are not compatible for multiplication";
@@ -73,7 +75,7 @@ Matrix Matrix::multiply(const Matrix &a, const Matrix &b){
 
 }
 
-Matrix Matrix::add(const Matrix &a, const Matrix &b) {
+template<class T> Matrix<T> Matrix<T>::add(const Matrix &a, const Matrix &b) {
 
 	if((a.cols() != b.cols()) && (a.rows() != b.rows()))
 		throw "Matrix dimensions are not compatible for addition";
@@ -82,13 +84,15 @@ Matrix Matrix::add(const Matrix &a, const Matrix &b) {
 
 
 }
-Matrix Matrix::operator * (const Matrix &b) {
-
+template<class T> Matrix<T> Matrix<T>::operator * (const Matrix &b) {
 	multiply(*this, b);
 }
 
-Matrix Matrix::operator + (const Matrix &b) {
+template<class T> Matrix<T> Matrix<T>::operator + (const Matrix &b) {
 
 	add(*this, b);
 }
 
+template class Matrix<double>;
+template class Matrix<int>;
+template class Matrix<float>;

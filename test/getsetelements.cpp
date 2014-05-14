@@ -1,103 +1,75 @@
 #include<iostream>
 #include<Matrix.hpp>
-
-using namespace std;
+#include"initialise.hpp"
+#define TYPE double
 
 int main(int argc, char *argv[]) {
 
-	Matrix b1(4, 1);
-	Matrix b2(1, 4);
-	Matrix b3(4, 4);
+	Matrix<TYPE> b1;
+	Matrix<TYPE> b2(1, 4);
+	Matrix<TYPE> b3(4, 4);
+	
 
-	double a1[4][1] = {{1.0}, {2.0}, {3.0}, {4.0}}; 
-	double ans1[4][1];
-	double a2[1][4] = {{1.0, 2.0, 3.0, 4.0}};
-	double ans2[1][4];
-	double a3[4][4] = {{1.0, 2.0, 3.0, 4.0}, {5.0, 6.0, 7.0, 8.0}, {9.0, 10.0, 11.0, 12.0}, {13.0, 14.0, 15.0, 16.0}};
-	double ans3[4][4];
+	TYPE a1[4][1]; 
+	TYPE ans1[4][1];
+	TYPE a2[1][4];
+	TYPE ans2[1][4];
+	TYPE a3[4][4];
+	TYPE ans3[4][4];
 	bool success = true;
-	cout<<"The following tests checks the setting and getting of elements for the Matrix class" << endl;
-	cout<<"Beginning Getter/Setter Tests for following matrices" <<endl;
-
-	cout << "Matrix 1 (4 x 1)" << endl;
+	std::cout<<"The following tests checks the setting and getting of elements for the Matrix class" << std::endl;
+	std::cout<<"Beginning Getter/Setter Tests for following matrices" << std::endl;
+	std::cout<< b1.Get(1, 1);
+	//test::inittestmatrix<double>(a1, 4, 1);
+	/*test<TYPE>::inittestmatrix(a2, 1, 4);
+	test<TYPE>::inittestmatrix(a3, 4, 4);
+	
+	std::cout << "Matrix 1 (4 x 1)" << std::endl;
 
 	for(int i = 0; i < 4; i++) {
 		for(int j = 0; j < 1; j++)
-			cout << a1[i][j] << " ";
-		cout << "\n";
+			std::cout << a1[i][j] << " ";
+		std::cout << "\n";
 	}
 
-	cout << "Matrix 2 (1 x 4)" << endl;
+	std::cout << "Matrix 2 (1 x 4)" << std::endl;
 
-	for(int i = 0; i < 1; i++) {
-		for(int j = 0; j < 4; j++)
-			cout << a2[i][j] << " ";
-		cout << "\n";
-	}
-
-	cout << "Matrix 3 (4 x 4)" << endl;
-
-	for(int i = 0; i < 4; i++) {
-		for(int j = 0; j < 4; j++)
-			cout << a3[i][j] << " ";
-		cout << "\n";
-	}
+	test<TYPE>::printmatrix(a1, 4, 1);
+	test<TYPE>::printmatrix(a1, 1, 4);
+	test<TYPE>::printmatrix(a1, 4, 4);
 	
-	cout << "\n";
-	cout << "Setting elements of an object of type Matrix" << endl;
-	
+	std::cout << "Matrix 3 (4 x 4)" << std::endl;
+
+	std::cout << "\n";
+	std::cout << "Setting elements of an object of type Matrix" << std::endl;
+
+
 	try{
-		for(int i = 0; i < 4; i++){
-			for(int j = 0; j < 1; j++) {
-				b1.Set(i, j) = a1[i][j];
-			}
-		}
+		test.initMatrix(b1, 4, 1);
 	}
-	catch(exception &e){
-		cout << e.what() << endl;
+	catch(std::exception &e){
+		std::cout << e.what() << std::endl;
 	
 	}
 
 	try{
-		for(int i = 0; i < 1; i++){
-			for(int j = 0; j < 4; j++) {
-				b2.Set(i, j) = a2[i][j];
-			}
-		}
+		test.initMatrix(b1, 1, 4);	
 	}
-	catch(exception &e){
-		cout << e.what() << endl;
+	catch(std::exception &e){
+		std::cout << e.what() << std::endl;
 	}
 
 	try{
-		for(int i = 0; i < 4; i++){
-			for(int j = 0; j < 4; j++) {
-				b3.Set(i, j) = a3[i][j];
-			}
-		}
+		test.initMatrix(b2, 4, 4);	
 	}
-	catch(exception &e){
-		cout << e.what() << endl;	
+	catch(std::exception &e){
+		std::cout << e.what() << std::endl;	
 	}
 
-	cout << "Done" << endl;
-	cout << "Getting elements and comparing to originals" << endl;
+	std::cout << "Done" << std::endl;
+	std::cout << "Getting elements and comparing to originals" << std::endl;
+
 	
-	try{
-		for(int i = 0; i < 4; i++){
-			for(int j = 0; j < 1; j++) {
-				if(b1.Get(i, j) != a1[i][j]) {
-					throw "Test for Matrix 1 (4 x 1) Failed";
-					success = false;
-				}
-					
-			}
-		}
-	}
-	catch(exception &e){
-		cout << e.what() << endl;	
-	}
-
 	try{
 		for(int i = 0; i < 1; i++){
 			for(int j = 0; j < 4; j++) {
@@ -108,8 +80,8 @@ int main(int argc, char *argv[]) {
 			}
 		}
 	}
-	catch(exception &e){
-		cout << e.what() << endl;	
+	catch(std::exception &e){
+		std::cout << e.what() << std::endl;	
 	}
 
 	try{
@@ -122,13 +94,14 @@ int main(int argc, char *argv[]) {
 			}
 		}
 	}
-	catch(exception &e){
-		cout << e.what() << endl;	
+	catch(std::exception &e){
+		std::cout << e.what() << std::endl;	
 	}
-
+	*/
 	if(success)
-		cout << "The tests were successful" << endl;
+		std::cout << "The tests were successful" << std::endl;
 	else
-		cout << "The tests failed" << endl;
+		std::cout << "The tests failed" << std::endl;
+
 	return 0;
 }

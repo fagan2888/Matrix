@@ -14,7 +14,7 @@ ALL=$(GETSET)
 all:$(ALL)
 	
 $(ALL): $(OBJS)
-	$(CXX) -o $@ $< $(LIBDIR) $(LIB)
+	$(CXX) -o $@ $< -L/home/pjnash/Coding/cppMatrix/lib -lMatrix $(LIBDIR) $(LIB)
 
 $(OBJS): $(SRC_CXX)
 	$(CXX) $(CXXFLAGS) $(OPTS) $(INCLUDE) -o $@ -c $<

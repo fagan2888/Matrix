@@ -3,11 +3,11 @@
 
 #include<string>
 #include<exception>
-class Matrix{
+template<class T>class Matrix{
 	
 
 	private:
-		double *matrix;
+		T *matrix;
 		int nrows;
 		int ncols;
 		std::string type = "Matrix";		
@@ -20,8 +20,8 @@ class Matrix{
 		~Matrix();
 		static Matrix multiply(const Matrix &a, const Matrix &b);
 		static Matrix add(const Matrix &a, const Matrix &b);
-		double &Set(int row, int col);
-		double Get(int row, int col);
+		T &Set(int row, int col);
+		T Get(int row, int col);
 		int rows() const;
 		int cols() const;
 		Matrix operator * (const Matrix &b);

@@ -15,7 +15,7 @@ $(TARGET): $(OBJS)
 	$(CXX) $(OPTS) $(LDFLAGS) -o $@ $<
 
 $(OBJS_CXX): $(SRC_CXX)
-	$(CXX) $(CFLAGS) $(CXXFLAGS) $(OPTS) -I$(INCLUDE) -o $@ -c $<
+	$(CXX) $(CFLAGS) -shared $(CXXFLAGS) $(OPTS) -I$(INCLUDE) -o $@ -c $<
 
 cleanall: 
 	$(RM) $(OBJS) $(TARGET)
