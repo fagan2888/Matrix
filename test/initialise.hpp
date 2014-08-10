@@ -11,13 +11,27 @@ class test{
 		std::cout << "Initialising Test Data" << std::endl;
 	}
 
-	template<class T> static void inittestmatrix(T a[4][1], int m, int n) {
+	template<class T> static void inittestmatrix(T **a, int m, int n) {
 		for(int i = 0; i < m; i++) {
 			for(int j = 0; j < n; j++)
 				a[i][j] = static_cast<T>(i * n + j);
 		}
 	}
 
+	template<class T> static void malloc2d(T **a, int m, int n) {
+		
+		a = new T *[m];
+		for(int i = 0; i < m; i++)
+			a[i] = new T[n];  
+	}
+
+	template<class T> static void dealloc2d(T **a, int m, int n) {
+	
+		for(int i = 0; i < m; i++)
+			delete[] a[i];
+
+		delete[] a;
+	}
 	template<class T> static void inittestMatrix(Matrix<T> a, int m, int n){
 		for(int i = 0; i < m; i++){
 			for(int j = 0; j < n; j++)
@@ -25,6 +39,13 @@ class test{
 		}
 	}
 
+	template<class T> static void printmatrix(T **a, int m, int n) {
+		for(int i = 0; i < m; i++) {
+			for(int j = 0; j < n; j++)
+				std::cout << a[i][j] << " ";
+			std::cout << "\n";
+		}
+	}
 	template<class T> static void printMatrix(Matrix<T> a, int m, int n) {
 		for(int i = 0; i < m; i++) {
 			for(int j = 0; j < n; j++)
@@ -48,7 +69,6 @@ class test{
 		return success;
 	}
 	
-	private:
 };
 
 #endif

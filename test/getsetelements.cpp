@@ -1,5 +1,4 @@
 #include<iostream>
-#include<Matrix.hpp>
 #include"initialise.hpp"
 #define TYPE double
 
@@ -9,21 +8,37 @@ int main(int argc, char *argv[]) {
 	Matrix<TYPE> b2(1, 4);
 	Matrix<TYPE> b3(4, 4);
 	
+	
+	TYPE **a1; 
+	TYPE **ans1;
+	TYPE **a2;
+	TYPE **ans2;
+	TYPE **a3;
+	TYPE **ans3;
+	
+	test::malloc2d(a1, 4, 1);
+	test::malloc2d(ans1, 4, 1);
+	test::malloc2d(a2, 1, 4);
+	test::malloc2d(ans2, 1, 4);
+	test::malloc2d(a3, 4, 4);
+	test::malloc2d(ans3, 4, 4);
 
-	TYPE a1[4][1]; 
-	TYPE ans1[4][1];
-	TYPE a2[1][4];
-	TYPE ans2[1][4];
-	TYPE a3[4][4];
-	TYPE ans3[4][4];
+
+	test::inittestmatrix(a1, 4, 1);
+	test::printmatrix(a1, 4, 1);
+	
+	TYPE **t = new TYPE *[4];
+	for(int i = 0; i < 4; i++)
+		t[i] = new TYPE[1];
+			
 	bool success = true;
 	std::cout<<"The following tests checks the setting and getting of elements for the Matrix class" << std::endl;
 	std::cout<<"Beginning Getter/Setter Tests for following matrices" << std::endl;
 	std::cout<< b1.Get(1, 1);
-	//test::inittestmatrix<double>(a1, 4, 1);
-	/*test<TYPE>::inittestmatrix(a2, 1, 4);
-	test<TYPE>::inittestmatrix(a3, 4, 4);
-	
+	test::inittestmatrix<TYPE>(t, 4, 1);
+	test::inittestmatrix(a2, 1, 4);
+	test::inittestmatrix(a3, 4, 4);
+		
 	std::cout << "Matrix 1 (4 x 1)" << std::endl;
 
 	for(int i = 0; i < 4; i++) {
@@ -34,9 +49,9 @@ int main(int argc, char *argv[]) {
 
 	std::cout << "Matrix 2 (1 x 4)" << std::endl;
 
-	test<TYPE>::printmatrix(a1, 4, 1);
-	test<TYPE>::printmatrix(a1, 1, 4);
-	test<TYPE>::printmatrix(a1, 4, 4);
+	test::printmatrix(a1, 4, 1);
+	test::printmatrix(a1, 1, 4);
+	test::printmatrix(a1, 4, 4);
 	
 	std::cout << "Matrix 3 (4 x 4)" << std::endl;
 
@@ -45,7 +60,7 @@ int main(int argc, char *argv[]) {
 
 
 	try{
-		test.initMatrix(b1, 4, 1);
+		test::inittestMatrix(b1, 4, 1);
 	}
 	catch(std::exception &e){
 		std::cout << e.what() << std::endl;
@@ -53,14 +68,14 @@ int main(int argc, char *argv[]) {
 	}
 
 	try{
-		test.initMatrix(b1, 1, 4);	
+		test::inittestMatrix(b1, 1, 4);	
 	}
 	catch(std::exception &e){
 		std::cout << e.what() << std::endl;
 	}
 
 	try{
-		test.initMatrix(b2, 4, 4);	
+		test::inittestMatrix(b2, 4, 4);	
 	}
 	catch(std::exception &e){
 		std::cout << e.what() << std::endl;	
@@ -97,11 +112,11 @@ int main(int argc, char *argv[]) {
 	catch(std::exception &e){
 		std::cout << e.what() << std::endl;	
 	}
-	*/
+	
 	if(success)
 		std::cout << "The tests were successful" << std::endl;
 	else
-		std::cout << "The tests failed" << std::endl;
+		std::cout << "The tests failed" << std::endl;	
 
 	return 0;
 }

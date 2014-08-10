@@ -1,36 +1,7 @@
 #include<iostream>
 #include<Matrix.hpp>
 
-template<class T>Matrix<T>::Matrix(){
-
-#ifdef DBG
-	std::cout << "Constructing Matrix" << std::endl;
-#endif	
-	nrows = 1;
-	ncols = 1;
-	allocate();
-}
-
-template<class T>Matrix<T>::Matrix(int nrows_, int ncols_) {
-
-	nrows = nrows_;
-	ncols = ncols_;
-	allocate();
-
-}
-
-template<class T>Matrix<T>::~Matrix(){
-
-#ifdef DBG
-	std::cout << "De-constructing Matrix" << std::endl;
-#endif	
-	deallocate();
-
-}
-
-
-
-template<class T> void Matrix<T>::allocate(){
+/*template<class T> void Matrix<T>::allocate(){
 
 	matrix = new T[nrows * ncols];
 
@@ -62,7 +33,7 @@ template<class T> T Matrix<T>::Get(int i, int j) {
 
 	return matrix[i * ncols + j];
 
-}
+}*/
 
 template<class T> Matrix<T> Matrix<T>::multiply(const Matrix &a, const Matrix &b){
 
@@ -93,6 +64,3 @@ template<class T> Matrix<T> Matrix<T>::operator + (const Matrix &b) {
 	add(*this, b);
 }
 
-template class Matrix<double>;
-template class Matrix<int>;
-template class Matrix<float>;

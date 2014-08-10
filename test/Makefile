@@ -1,6 +1,6 @@
 include ../make.inc
 
-ADD:=add
+ADD:=
 GETSET:=getset
 LIB:=-lMatrix
 LIBDIR:=-L../lib
@@ -14,10 +14,12 @@ ALL=$(GETSET)
 all:$(ALL)
 	
 $(ALL): $(OBJS)
-	$(CXX) -o $@ $< -L/home/pjnash/Coding/cppMatrix/lib -lMatrix $(LIBDIR) $(LIB)
+	$(CXX) -o $@ $< $(LIBDIR) $(LIB)
 
 $(OBJS): $(SRC_CXX)
 	$(CXX) $(CXXFLAGS) $(OPTS) $(INCLUDE) -o $@ -c $<
 
 clean:
-	rm $(OBJS) $(ADD)
+	rm $(OBJS)
+cleanall:
+	rm $(OBJS) $(ALL)
