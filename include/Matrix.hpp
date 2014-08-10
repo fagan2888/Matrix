@@ -53,11 +53,11 @@ template<class T>class Matrix{
 		};
 
 		int rows() const{
-			return ncols;
+			return nrows;
 		};
 		
 		int cols() const{
-			return rows;
+			return ncols;
 		};
 		Matrix operator * (const Matrix &b);
 		Matrix operator + (const Matrix &b);
