@@ -86,6 +86,7 @@ int main(int argc, char *argv[]) {
 	try{
 		b.Set(1, 1) = 1.0;
 		if(b.Get(1, 1) != 1.0) {
+			success = false;
 			throw std::runtime_error(std::string("Test for base constructor (1 x 1) Failed"));
 		}
 	} catch(std::exception &e) {
@@ -96,8 +97,8 @@ int main(int argc, char *argv[]) {
 		for(int i = 0; i < b1.rows(); i++){
 			for(int j = 0; j < b1.cols(); j++) {
 				if(b1.Get(i, j) != a1[i][j]) {
-					throw std::runtime_error(std::string("Test for Matrix 1 (4 x 1) Failed"));
 					success = false;
+					throw std::runtime_error(std::string("Test for Matrix 1 (4 x 1) Failed"));
 				}	
 			}
 		}
@@ -110,9 +111,10 @@ int main(int argc, char *argv[]) {
 	try{
 		for(int i = 0; i < b2.rows(); i++){
 			for(int j = 0; j < b2.cols(); j++) {
-				if(b2.Get(i, j) != a2[i][j]) {
-					throw std::runtime_error(std::string("Test for Matrix 1 (1 x 4) Failed"));
+				if(b2.Get(i, j) != a2[i][j]) {	
 					success = false;
+					throw std::runtime_error(std::string("Test for Matrix 1 (1 x 4) Failed"));
+
 				}	
 			}
 		}
@@ -124,9 +126,10 @@ int main(int argc, char *argv[]) {
 	try{
 		for(int i = 0; i < b3.rows(); i++){
 			for(int j = 0; j < b3.cols(); j++) {
-				if(b3.Get(i, j) != a3[i][j]) {
-					throw "Test for Matrix 1 (4 x 4) Failed";
+				if(b3.Get(i, j) != a3[i][j]) {	
 					success = false;
+					throw std::runtime_error(std::string("Test for Matrix 1 (4 x 4) Failed"));
+
 				}
 			}
 		}
