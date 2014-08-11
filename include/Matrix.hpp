@@ -3,6 +3,7 @@
 
 #include<string>
 #include<exception>
+#include<stdexcept>
 template<class T>class Matrix{
 	
 	private:
@@ -42,13 +43,19 @@ template<class T>class Matrix{
 
 		static Matrix multiply(const Matrix &a, const Matrix &b);
 		static Matrix add(const Matrix &a, const Matrix &b);
-		T &Set(int row, int col) {
+		T &Set(int row, int col) {	
+			if(row < 0 || col < 0)
+				throw std::invalid_argument(std::string("Elements cannot be less than 0"));	
+			if (row >= nrows || col >= ncols)
+				throw std::invalid_argument(std::string("Element out of bounds"));
 			return *(matrix + row * ncols + col);
 		};
 
 		T Get(int row, int col) {
 			if(row < 0 || col < 0)
-				throw "Elements cannot be less than 0";
+				throw std::invalid_argument(std::string("Elements cannot be less than 0"));	
+			if (row >= nrows || col >= ncols)
+				throw std::invalid_argument(std::string("Element out of bounds"));
 			return matrix[row * ncols + col];
 		};
 
@@ -61,6 +68,21 @@ template<class T>class Matrix{
 		};
 		Matrix operator * (const Matrix &b);
 		Matrix operator + (const Matrix &b);
+		T operator () (int i, int j) const{	
+			if(i < 0 || j < 0)
+				throw std::invalid_argument(std::string("Elements cannot be less than 0"));	
+			if (i >= nrows || j >= ncols)
+				throw std::invalid_argument(std::string("Element out of bounds"));
+			return matrix[i * ncols + j];
+		}
+
+		T &operator () (int i, int j) {	
+			if(i < 0 || j < 0)
+				throw std::invalid_argument(std::string("Elements cannot be less than 0"));	
+			if (i >= nrows || j >= ncols)
+				throw std::invalid_argument(std::string("Element out of bounds"));
+			return *(matrix + i * ncols + j);
+		}
 };
 
 #endif

@@ -60,7 +60,6 @@ template<class T> Matrix<T> Matrix<T>::operator * (const Matrix &b) {
 }
 
 template<class T> Matrix<T> Matrix<T>::operator + (const Matrix &b) {
-
 	add(*this, b);
 }
 

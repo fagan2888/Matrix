@@ -150,5 +150,16 @@ int main(int argc, char *argv[]) {
 	test::dealloc2d(ans2, 4, 1);
 	test::dealloc2d(ans3, 4, 4);
 
+	double x = b1(0,0);
+	std::cout << x << " " << b1(0, 0) << std::endl;
+	x = 43;
+	std::cout << x << " " << b1(0, 0) << std::endl;
+	for(int i = 0; i < b1.rows(); ++i) {
+		for(int j = 0; j < b1.cols(); ++j) 
+			std::cout << b1(i, j) << " ";
+		std::cout << "\n";
+	}
+
+	
 	return 0;
 }
