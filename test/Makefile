@@ -1,16 +1,16 @@
 include ../make.inc
 
-ADD:=
+ADD:=add
 GETSET:=getset
 LIB:=-lMatrix
 LIBDIR:=-L../lib
 INCLUDE:=-I../include
 LDFLAGS:=
-SRC_CXX:=getsetelements.cpp
+SRC_CXX:=getsetelements.cpp add.cpp
 OBJS_CXX:=$(patsubst %.cpp,%.cpp.o,$(SRC_CXX))
 OBJS:=$(OBJS_CXX)
 
-ALL=$(GETSET)
+ALL=$(GETSET) $(ADD)
 all:$(ALL)
 	
 $(ALL): $(OBJS)

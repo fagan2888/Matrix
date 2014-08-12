@@ -33,7 +33,7 @@ template<class T> T Matrix<T>::Get(int i, int j) {
 
 	return matrix[i * ncols + j];
 
-}*/
+}
 
 template<class T> Matrix<T> Matrix<T>::multiply(const Matrix &a, const Matrix &b){
 
@@ -62,4 +62,4 @@ template<class T> Matrix<T> Matrix<T>::operator * (const Matrix &b) {
 template<class T> Matrix<T> Matrix<T>::operator + (const Matrix &b) {
 	add(*this, b);
 }
-
+*/

@@ -34,6 +34,21 @@ template<class T>class Matrix{
 			return matrix[row * ncols + col];
 		};
 
+		void multiply(const Matrix &a, const Matrix &b, Matrix &c){
+			if(a.cols() != b.rows())
+				throw std::invalid_argument(std::string("Matrix dimensions are not compatible for multiplication"));
+		}
+		
+		void add(const Matrix &a, const Matrix &b, Matrix &c) {
+			if((a.cols() != b.cols()) && (a.rows() != b.rows()))
+				throw std::invalid_argument(std::string("Matrix dimensions are not compatible for addition"));
+		}
+
+		void subtract(const Matrix &a, const Matrix &b, Matrix &c) {
+			if((a.cols() != b.cols()) && (a.rows() != b.rows()))
+				throw std::invalid_argument(std::string("Matrix dimensions are not compatible for subtraction"));
+		}
+
 	public:
 		Matrix(){
 #ifdef DBG
@@ -57,9 +72,6 @@ template<class T>class Matrix{
 			deallocate();
 		};
 
-		static Matrix multiply(const Matrix &a, const Matrix &b);
-		static Matrix add(const Matrix &a, const Matrix &b);
-
 		int rows() const{
 			return nrows;
 		};
@@ -67,8 +79,7 @@ template<class T>class Matrix{
 		int cols() const{
 			return ncols;
 		};
-		Matrix operator * (const Matrix &b);
-		Matrix operator + (const Matrix &b);
+		
 		T operator () (int i, int j) const{	
 			if(i < 0 || j < 0)
 				throw std::invalid_argument(std::string("Elements cannot be less than 0"));	
@@ -82,9 +93,26 @@ template<class T>class Matrix{
 				throw std::invalid_argument(std::string("Elements cannot be less than 0"));	
 			if (i >= nrows || j >= ncols)
 				throw std::invalid_argument(std::string("Element out of bounds"));
-		//	return *(matrix + i * ncols + j);
 			return Set(i, j);
 		}
-};
 
+		Matrix operator * (const Matrix &b) {
+			Matrix c;
+			multiply(*this, b, c);
+			return c;
+		}
+
+		Matrix operator + (const Matrix &b) {
+			Matrix c;
+			add(*this, b, c);
+			return c;
+		}
+
+		Matrix operator - (const Matrix &b) {
+			Matrix c;
+			subtract(*this, b, c);
+			return c;
+		}
+
+};
 #endif
