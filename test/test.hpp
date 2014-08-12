@@ -36,7 +36,7 @@ class test{
 	template<class T> static void inittestMatrix(Matrix<T> &a){
 		for(int i = 0; i < a.rows(); i++){
 			for(int j = 0; j < a.cols(); j++)
-				a.Set(i, j) = static_cast<T>(i * a.cols() + j); 
+				a(i, j) = static_cast<T>(i * a.cols() + j); 
 		}
 	}
 
@@ -55,14 +55,14 @@ class test{
 		}
 	}
 
-	template<class T> static bool compare(Matrix<T> a, T** &b, int m, int n){
-		if(a.nrows() != m || a.ncols() != n)
+	template<class T> static bool compare(Matrix<T> &a, T** &b, int m, int n){
+		if(a.rows() != m || a.cols() != n)
 			return false;
 
 		bool success = true;
 		for(int i = 0; i < m; i++) {
 			for(int j = 0; j < n; j++) {
-				if(b[i][j] != a.Get(i, j))
+				if(b[i][j] != a(i, j))
 					success = false;
 			}
 		}

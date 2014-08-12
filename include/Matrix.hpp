@@ -18,6 +18,22 @@ template<class T>class Matrix{
 			delete[] matrix;
 		};
 
+		T &Set(int row, int col) {	
+			if(row < 0 || col < 0)
+				throw std::invalid_argument(std::string("Elements cannot be less than 0"));	
+			if (row >= nrows || col >= ncols)
+				throw std::invalid_argument(std::string("Element out of bounds"));
+			return *(matrix + row * ncols + col);
+		};
+
+		T Get(int row, int col) {
+			if(row < 0 || col < 0)
+				throw std::invalid_argument(std::string("Elements cannot be less than 0"));	
+			if (row >= nrows || col >= ncols)
+				throw std::invalid_argument(std::string("Element out of bounds"));
+			return matrix[row * ncols + col];
+		};
+
 	public:
 		Matrix(){
 #ifdef DBG
@@ -43,21 +59,6 @@ template<class T>class Matrix{
 
 		static Matrix multiply(const Matrix &a, const Matrix &b);
 		static Matrix add(const Matrix &a, const Matrix &b);
-		T &Set(int row, int col) {	
-			if(row < 0 || col < 0)
-				throw std::invalid_argument(std::string("Elements cannot be less than 0"));	
-			if (row >= nrows || col >= ncols)
-				throw std::invalid_argument(std::string("Element out of bounds"));
-			return *(matrix + row * ncols + col);
-		};
-
-		T Get(int row, int col) {
-			if(row < 0 || col < 0)
-				throw std::invalid_argument(std::string("Elements cannot be less than 0"));	
-			if (row >= nrows || col >= ncols)
-				throw std::invalid_argument(std::string("Element out of bounds"));
-			return matrix[row * ncols + col];
-		};
 
 		int rows() const{
 			return nrows;
@@ -73,7 +74,7 @@ template<class T>class Matrix{
 				throw std::invalid_argument(std::string("Elements cannot be less than 0"));	
 			if (i >= nrows || j >= ncols)
 				throw std::invalid_argument(std::string("Element out of bounds"));
-			return matrix[i * ncols + j];
+			return Get(i, j);
 		}
 
 		T &operator () (int i, int j) {	
@@ -81,7 +82,8 @@ template<class T>class Matrix{
 				throw std::invalid_argument(std::string("Elements cannot be less than 0"));	
 			if (i >= nrows || j >= ncols)
 				throw std::invalid_argument(std::string("Element out of bounds"));
-			return *(matrix + i * ncols + j);
+		//	return *(matrix + i * ncols + j);
+			return Set(i, j);
 		}
 };
 
