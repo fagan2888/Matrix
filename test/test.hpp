@@ -50,11 +50,28 @@ class test{
 	template<class T> static void printMatrix(Matrix<T> &a) {
 		for(int i = 0; i < a.rows(); i++) {
 			for(int j = 0; j < a.cols(); j++)
-				std::cout << a[i][j] << " ";
+				std::cout << a(i, j) << " ";
 			std::cout << "\n";
 		}
 	}
 
+	template<class T> static void add2d(T **&a, T **&b, T **&c, int m, int n) {
+		
+		for(int i = 0; i < m; ++i) {
+			for(int j = 0; j < n; ++j)
+				c[i][j] = a[i][j] + b[i][j];
+		}
+
+	}
+	
+	template<class T> static void subtract2d(T **&a, T **&b, T **&c, int m, int n) {
+		
+		for(int i = 0; i < m; ++i) {
+			for(int j = 0; j < n; ++j)
+				c[i][j] = a[i][j] - b[i][j];
+		}
+
+	}
 	template<class T> static bool compare(Matrix<T> &a, T** &b, int m, int n){
 		if(a.rows() != m || a.cols() != n)
 			return false;

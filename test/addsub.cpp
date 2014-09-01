@@ -10,18 +10,22 @@ int main(int argc, char *argv[]) {
 	Matrix<TYPE> b1(4, 1);
 	Matrix<TYPE> b2(1, 4);
 	Matrix<TYPE> b3(4, 4);
+	Matrix<TYPE> ansMatrix1(4, 1);
+	Matrix<TYPE> ansMatrix2(1, 4);
+	Matrix<TYPE> ansMatrix3(4, 4);
+	
 	TYPE **a1; 
 	TYPE **a2;
 	TYPE **a3;
+	TYPE **ans1; 
+	TYPE **ans2;
+	TYPE **ans3;
+
 	std::vector<bool> success;
 	int numtests = 4;
 	int testindex = 0;
 
 	Matrix<TYPE> tmp;
-
-	tmp = b + b;
-	tmp = b - b;
-	tmp = b * b;
 
 	for(int i = 0; i < numtests; ++i) 
 		success.push_back(true);
@@ -30,6 +34,10 @@ int main(int argc, char *argv[]) {
 		test::malloc2d<TYPE>(a1, 4, 1);
 		test::malloc2d<TYPE>(a2, 1, 4);
 		test::malloc2d<TYPE>(a3, 4, 4);
+		test::malloc2d<TYPE>(ans1, 4, 1);
+		test::malloc2d<TYPE>(ans2, 1, 4);
+		test::malloc2d<TYPE>(ans3, 4, 4);
+	
 	}
 	catch (std::exception &ex) {
 		std::cout << "Caught Exception" << ex.what() << " in memory allocation" << std::endl;
@@ -87,9 +95,18 @@ int main(int argc, char *argv[]) {
 		std::cout << e.what() << std::endl;	
 	}
 
+
 	std::cout << "Done" << std::endl;
 	std::cout << "Getting elements and comparing to originals" << std::endl;
 	
+
+	b = b1 + b1;
+	
+	test::printMatrix(b);
+
+	std::cout << " END " << std::endl;
+	
+
 	try{
 		b(0, 0) = 1.0;
 		if(b(0, 0) != 1.0) {

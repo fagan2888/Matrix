@@ -1,22 +1,30 @@
 include ../make.inc
 
-ADD:=add
+ADDSUB:=addsub
 GETSET:=getset
 LIB:=-lMatrix
 LIBDIR:=-L../lib
 INCLUDE:=-I../include
 LDFLAGS:=
-SRC_CXX:=getsetelements.cpp add.cpp
-OBJS_CXX:=$(patsubst %.cpp,%.cpp.o,$(SRC_CXX))
-OBJS:=$(OBJS_CXX)
+SRC_GETSET:=getsetelements.cpp
+SRC_ADDSUB=addsub.cpp
+OBJS_GETSET:=$(patsubst %.cpp,%.cpp.o,$(SRC_GETSET))
+OBJS_ADDSUB:=$(patsubst %.cpp,%.cpp.o,$(SRC_ADDSUB))
+OBJS:=$(OBJS_GETSET) $(OBJS_ADDSUB)
 
-ALL=$(GETSET) $(ADD)
+ALL=$(GETSET) $(ADDSUB)
 all:$(ALL)
-	
-$(ALL): $(OBJS)
+
+$(ADDSUB): $(OBJS_ADDSUB)
 	$(CXX) -o $@ $< $(LIBDIR) $(LIB)
 
-$(OBJS): $(SRC_CXX)
+$(GETSET): $(OBJS_GETSET)
+	$(CXX) -o $@ $< $(LIBDIR) $(LIB)
+
+$(OBJS_GETSET): $(SRC_GETSET)
+	$(CXX) $(CXXFLAGS) $(OPTS) $(INCLUDE) -o $@ -c $<
+
+$(OBJS_ADDSUB): $(SRC_ADDSUB)
 	$(CXX) $(CXXFLAGS) $(OPTS) $(INCLUDE) -o $@ -c $<
 
 clean:

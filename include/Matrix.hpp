@@ -39,14 +39,28 @@ template<class T>class Matrix{
 				throw std::invalid_argument(std::string("Matrix dimensions are not compatible for multiplication"));
 		}
 		
-		void add(const Matrix &a, const Matrix &b, Matrix &c) {
+		void add(Matrix &a, const Matrix &b, Matrix &c) {
+			
 			if((a.cols() != b.cols()) && (a.rows() != b.rows()))
 				throw std::invalid_argument(std::string("Matrix dimensions are not compatible for addition"));
+			
+			for(int i = 0; i < a.rows(); ++i) {
+				for(int j = 0; j < a.cols(); ++j) {
+					c(i, j) = a(i, j) + b(i, j);
+				}
+			}
 		}
 
 		void subtract(const Matrix &a, const Matrix &b, Matrix &c) {
+			
 			if((a.cols() != b.cols()) && (a.rows() != b.rows()))
 				throw std::invalid_argument(std::string("Matrix dimensions are not compatible for subtraction"));
+			
+			for(int i = 0; i < a.rows(); ++i) {
+				for(int j = 0; j < a.cols(); ++j) {
+					c(i, j) = a(i, j) + b(i, j);
+				}
+			}
 		}
 
 	public:
@@ -96,21 +110,34 @@ template<class T>class Matrix{
 			return Set(i, j);
 		}
 
-		Matrix operator * (const Matrix &b) {
+		Matrix operator * (const Matrix &b) {	
+
 			Matrix c;
 			multiply(*this, b, c);
 			return c;
 		}
 
-		Matrix operator + (const Matrix &b) {
-			Matrix c;
-			add(*this, b, c);
+		Matrix operator + (const Matrix &b) {	
+			
+			if((this->cols() != b.cols()) && (this->rows() != b.rows()))
+				throw std::invalid_argument(std::string("Matrix dimensions are not compatible for addition"));
+			
+			Matrix c(b.rows(), b.cols());
+			
+			//add(this, b, c);
+			
 			return c;
 		}
 
 		Matrix operator - (const Matrix &b) {
-			Matrix c;
+			
+			if((this->cols() != b.cols()) && (this->rows() != b.rows()))
+				throw std::invalid_argument(std::string("Matrix dimensions are not compatible for subtraction"));
+			
+			Matrix c(b.rows(), b.cols());
+			
 			subtract(*this, b, c);
+			
 			return c;
 		}
 
