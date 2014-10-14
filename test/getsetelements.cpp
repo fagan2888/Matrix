@@ -58,27 +58,27 @@ int main(int argc, char *argv[]) {
 	try{
 		test::inittestMatrix(b);
 	} catch(std::exception &e) {
-		std::cout << e.what() << std::endl;
+		std::cout << "Matrix b " << e.what() << std::endl;
 	}
 	try{
 		test::inittestMatrix(b1);
 	}
 	catch(std::exception &e){
-		std::cout << e.what() << std::endl;	
+		std::cout << "Matrix b1 " <<e.what() << std::endl;	
 	}
 
 	try{
 		test::inittestMatrix(b2);	
 	}
 	catch(std::exception &e){
-		std::cout << e.what() << std::endl;	
+		std::cout << "Matrix b2 " << e.what() << std::endl;	
 	}
 
 	try{
 		test::inittestMatrix(b3);	
 	}
 	catch(std::exception &e){
-		std::cout << e.what() << std::endl;	
+		std::cout <<	"Matrix b3 " << e.what() << std::endl;	
 	}
 
 	std::cout << "Done" << std::endl;

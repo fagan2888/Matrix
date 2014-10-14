@@ -72,52 +72,36 @@ int main(int argc, char *argv[]) {
 	try{
 		test::inittestMatrix(b);
 	} catch(std::exception &e) {
-		std::cout << e.what() << std::endl;
+		std::cout << "Matrix b " << e.what() << std::endl;
 	}
 	try{
 		test::inittestMatrix(b1);
 	}
 	catch(std::exception &e){
-		std::cout << e.what() << std::endl;	
+		std::cout << "Matrix b1 " <<e.what() << std::endl;	
 	}
 
 	try{
 		test::inittestMatrix(b2);	
 	}
 	catch(std::exception &e){
-		std::cout << e.what() << std::endl;	
+		std::cout << "Matrix b2 " <<e.what() << std::endl;	
 	}
 
 	try{
 		test::inittestMatrix(b3);	
 	}
 	catch(std::exception &e){
-		std::cout << e.what() << std::endl;	
+		std::cout <<"Matrix b3 " << e.what() << std::endl;	
 	}
 
-
+	std::cout << "Copy Const" << std::endl;
 	std::cout << "Done" << std::endl;
 	std::cout << "Getting elements and comparing to originals" << std::endl;
 	
 
-	b = b1 + b1;
+	std::cout << "END " << std::endl;
 	
-	test::printMatrix(b);
-
-	std::cout << " END " << std::endl;
-	
-
-	try{
-		b(0, 0) = 1.0;
-		if(b(0, 0) != 1.0) {
-			success[testindex] = false;
-			++testindex;
-			throw std::runtime_error(std::string("Test for base constructor (1 x 1) Failed"));
-		}
-	} catch(std::exception &e) {
-		std::cout << e.what() << std::endl;	
-	}
-
 	try{
 		if(!test::compare(b1, a1, b1.rows(), b1.cols())) {
 			success[testindex] = false;
@@ -162,7 +146,7 @@ int main(int argc, char *argv[]) {
 	//Cleaning up 2d pointers 
 	test::dealloc2d(a1, 1, 4);
 	test::dealloc2d(a2, 4, 1);
-	test::dealloc2d(a3, 4, 4);
-		
+	test::dealloc2d(a3, 4, 4);	
+
 	return 0;
 }

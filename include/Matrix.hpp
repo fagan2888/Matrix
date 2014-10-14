@@ -39,7 +39,7 @@ template<class T>class Matrix{
 				throw std::invalid_argument(std::string("Matrix dimensions are not compatible for multiplication"));
 		}
 		
-		void add(Matrix &a, const Matrix &b, Matrix &c) {
+		void add(const Matrix &a, const Matrix &b, Matrix &c) {
 			
 			if((a.cols() != b.cols()) && (a.rows() != b.rows()))
 				throw std::invalid_argument(std::string("Matrix dimensions are not compatible for addition"));
@@ -58,7 +58,8 @@ template<class T>class Matrix{
 			
 			for(int i = 0; i < a.rows(); ++i) {
 				for(int j = 0; j < a.cols(); ++j) {
-					c(i, j) = a(i, j) + b(i, j);
+					//c(i, j) = a(i, j) + b(i, j);
+					//c.matrix[i * a.rows() + j] = a.matrix[i * a.rows() + j] + b.matrix[i * a.rows() + j];
 				}
 			}
 		}
@@ -74,11 +75,25 @@ template<class T>class Matrix{
 		};
 
 		Matrix(int nrows_, int ncols_){
+#ifdef DBG
+			std::cout << "Constructing Matrix" << std::endl;
+#endif	
 			nrows = nrows_;
 			ncols = ncols_;
 			allocate();
 		};
-
+		
+		Matrix(const Matrix &b) {
+			this->deallocate();
+			this->nrows = b.rows();
+			this->ncols = b.cols();
+			this->allocate();
+			for(int i = 0; i < this->nrows; ++i) {
+				for(int j = 0; j < this->ncols; ++j) {
+					this->matrix[i * nrows + j] = b.matrix[i * b.rows() + j];
+				}
+			}
+		}
 		~Matrix(){
 #ifdef DBG
 			std::cout << "De-constructing Matrix" << std::endl;
@@ -123,12 +138,33 @@ template<class T>class Matrix{
 				throw std::invalid_argument(std::string("Matrix dimensions are not compatible for addition"));
 			
 			Matrix c(b.rows(), b.cols());
-			
-			//add(this, b, c);
+		
+			//Matrix a(*this);
+
+			//add(*this, b, c);
+
+			for(int i = 0; i < b.rows(); ++i) {
+				for(int j = 0; j < b.cols(); ++j) {
+					c.matrix[i * b.rows() + j] = this->matrix[i * b.rows() + j] + b.matrix[i * b.rows() + j];
+				}
+			}
 			
 			return c;
 		}
+		
+		Matrix& operator = (const Matrix &b) {
+			this->deallocate();
+			this->nrows = b.rows();
+			this->ncols = b.cols();
+			this->allocate();
+			for(int i = 0; i < this->nrows; ++i) {
+				for(int j = 0; j < this->ncols; ++j) {
+					this->matrix[i * nrows + j] = b.matrix[i * b.rows() + j];
+				}
+			}
 
+			return *this;
+		}
 		Matrix operator - (const Matrix &b) {
 			
 			if((this->cols() != b.cols()) && (this->rows() != b.rows()))
@@ -136,10 +172,14 @@ template<class T>class Matrix{
 			
 			Matrix c(b.rows(), b.cols());
 			
-			subtract(*this, b, c);
-			
+			for(int i = 0; i < b.rows(); ++i) {
+				for(int j = 0; j < b.cols(); ++j) {
+					c.matrix[i * b.rows() + j] = this->matrix[i * b.rows() + j] + b.matrix[i * b.rows() + j];
+				}
+			}
 			return c;
 		}
+
 
 };
 #endif
