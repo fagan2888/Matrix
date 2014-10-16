@@ -4,6 +4,7 @@
 #include<string>
 #include<exception>
 #include<stdexcept>
+#include<cblas.h>
 template<class T>class Matrix{
 	
 	private:
@@ -12,9 +13,15 @@ template<class T>class Matrix{
 		int ncols;
 		std::string type = "Matrix";		
 		void allocate() {
+#ifdef DBG
+	std::cout << "Allocating array" << std::endl;
+#endif
 			matrix = new T[nrows * ncols];
 		};
 		void deallocate() {
+#ifdef DBG
+	std::cout << "Deallocating array" << std::endl;
+#endif
 			delete[] matrix;
 		};
 
@@ -34,37 +41,8 @@ template<class T>class Matrix{
 			return matrix[row * ncols + col];
 		};
 
-		void multiply(const Matrix &a, const Matrix &b, Matrix &c){
-			if(a.cols() != b.rows())
-				throw std::invalid_argument(std::string("Matrix dimensions are not compatible for multiplication"));
-		}
 		
-		void add(const Matrix &a, const Matrix &b, Matrix &c) {
-			
-			if((a.cols() != b.cols()) && (a.rows() != b.rows()))
-				throw std::invalid_argument(std::string("Matrix dimensions are not compatible for addition"));
-			
-			for(int i = 0; i < a.rows(); ++i) {
-				for(int j = 0; j < a.cols(); ++j) {
-					c(i, j) = a(i, j) + b(i, j);
-				}
-			}
-		}
-
-		void subtract(const Matrix &a, const Matrix &b, Matrix &c) {
-			
-			if((a.cols() != b.cols()) && (a.rows() != b.rows()))
-				throw std::invalid_argument(std::string("Matrix dimensions are not compatible for subtraction"));
-			
-			for(int i = 0; i < a.rows(); ++i) {
-				for(int j = 0; j < a.cols(); ++j) {
-					//c(i, j) = a(i, j) + b(i, j);
-					//c.matrix[i * a.rows() + j] = a.matrix[i * a.rows() + j] + b.matrix[i * a.rows() + j];
-				}
-			}
-		}
-
-	public:
+		public:
 		Matrix(){
 #ifdef DBG
 			std::cout << "Constructing Matrix" << std::endl;
@@ -84,6 +62,9 @@ template<class T>class Matrix{
 		};
 		
 		Matrix(const Matrix &b) {
+#ifdef DBG
+	std::cout << "Copy Constructor" << std::endl;
+#endif
 			this->deallocate();
 			this->nrows = b.rows();
 			this->ncols = b.cols();
@@ -109,6 +90,22 @@ template<class T>class Matrix{
 			return ncols;
 		};
 		
+		Matrix& operator = (const Matrix &b) {
+#ifdef DBG
+	std::cout << "= Operator" << std::endl;
+#endif
+			this->deallocate();
+			this->nrows = b.rows();
+			this->ncols = b.cols();
+			this->allocate();
+			for(int i = 0; i < this->nrows; ++i) {
+				for(int j = 0; j < this->ncols; ++j) {
+					this->matrix[i * nrows + j] = b.matrix[i * b.rows() + j];
+				}
+			}
+			return *this;
+		}
+
 		T operator () (int i, int j) const{	
 			if(i < 0 || j < 0)
 				throw std::invalid_argument(std::string("Elements cannot be less than 0"));	
@@ -125,59 +122,60 @@ template<class T>class Matrix{
 			return Set(i, j);
 		}
 
-		Matrix operator * (const Matrix &b) {	
-
-			Matrix c;
-			multiply(*this, b, c);
+		Matrix multiply(const Matrix &a, const Matrix &b){
+#ifdef DBG
+	std::cout << "Multiplying Matrix" << std::endl;
+#endif
+			if(a.cols() != b.rows())
+				throw std::invalid_argument(std::string("Matrix dimensions are not compatible for multiplication"));
+			Matrix c(a.rows(), b.cols());
+		
 			return c;
 		}
-
-		Matrix operator + (const Matrix &b) {	
-			
-			if((this->cols() != b.cols()) && (this->rows() != b.rows()))
+		
+		Matrix operator * (const Matrix &b) {	
+			return multiply(*this, b);
+		}
+		
+		Matrix add(const Matrix &a, const Matrix &b) const{
+#ifdef DBG
+	std::cout << "Adding Matrix" << std::endl;
+#endif
+			Matrix c(a.rows(), a.cols());
+			if((a.cols() != b.cols()) && (a.rows() != b.rows()))
 				throw std::invalid_argument(std::string("Matrix dimensions are not compatible for addition"));
 			
-			Matrix c(b.rows(), b.cols());
-		
-			//Matrix a(*this);
-
-			//add(*this, b, c);
-
-			for(int i = 0; i < b.rows(); ++i) {
-				for(int j = 0; j < b.cols(); ++j) {
-					c.matrix[i * b.rows() + j] = this->matrix[i * b.rows() + j] + b.matrix[i * b.rows() + j];
+			for(int i = 0; i < a.rows(); ++i) {
+				for(int j = 0; j < a.cols(); ++j) {
+					c.matrix[i * c.rows() + j] = a.matrix[i * a.rows() + j] + b.matrix[i * b.rows() + j];
 				}
 			}
-			
+
 			return c;
 		}
+		Matrix operator + (const Matrix &b) {	
+			
+			return add(*this, b);
+		}
 		
-		Matrix& operator = (const Matrix &b) {
-			this->deallocate();
-			this->nrows = b.rows();
-			this->ncols = b.cols();
-			this->allocate();
-			for(int i = 0; i < this->nrows; ++i) {
-				for(int j = 0; j < this->ncols; ++j) {
-					this->matrix[i * nrows + j] = b.matrix[i * b.rows() + j];
+		Matrix subtract(const Matrix &a, const Matrix &b) {
+#ifdef DBG
+	std::cout << "Subtracting Matrix" << std::endl;
+#endif
+			if((a.cols() != b.cols()) && (a.rows() != b.rows()))
+				throw std::invalid_argument(std::string("Matrix dimensions are not compatible for subtraction"));
+		
+			Matrix c(a.rows(), a.cols());
+			for(int i = 0; i < a.rows(); ++i) {
+				for(int j = 0; j < a.cols(); ++j) {
+					c.matrix[i * c.rows() + j] = a.matrix[i * a.rows() + j] + b.matrix[i * b.rows() + j];
 				}
 			}
-
-			return *this;
 		}
+
 		Matrix operator - (const Matrix &b) {
 			
-			if((this->cols() != b.cols()) && (this->rows() != b.rows()))
-				throw std::invalid_argument(std::string("Matrix dimensions are not compatible for subtraction"));
-			
-			Matrix c(b.rows(), b.cols());
-			
-			for(int i = 0; i < b.rows(); ++i) {
-				for(int j = 0; j < b.cols(); ++j) {
-					c.matrix[i * b.rows() + j] = this->matrix[i * b.rows() + j] + b.matrix[i * b.rows() + j];
-				}
-			}
-			return c;
+			return subtract(*this, b);
 		}
 
 

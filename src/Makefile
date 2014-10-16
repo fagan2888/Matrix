@@ -4,18 +4,17 @@ include ../make.inc
 
 TARGET:=../lib/libMatrix.so
 SRC_CXX:=Matrix.cpp
-INCLUDE+=../include
-
+INCLUDE+=-I../include
 OBJS_CXX:=$(patsubst %.cpp,%.cpp.o,$(SRC_CXX))
 OBJS:=$(OBJS_CXX)
 
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
-	$(CXX) $(OPTS) $(LDFLAGS) -o $@ $<
+	$(CXX) $(OPTS) -shared -o $@ $<
 
 $(OBJS_CXX): $(SRC_CXX)
-	$(CXX) $(CFLAGS) -shared $(CXXFLAGS) $(OPTS) -I$(INCLUDE) -o $@ -c $<
+	$(CXX) $(CFLAGS) $(CXXFLAGS) $(OPTS) $(INCLUDE) -o $@ -c $<
 
 cleanall: 
 	$(RM) $(OBJS) $(TARGET)

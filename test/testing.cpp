@@ -23,10 +23,7 @@ int main(int argc, char *argv[]) {
 		std::cout << "Matrix b1 " <<e.what() << std::endl;	
 	}
 	
-	std::cout << "Start = " << std::endl; 
 	b = b1 + b1;
-
-	std::cout << "END = " << std::endl;	
 
 	test::printMatrix(b);
 	return 0;

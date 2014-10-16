@@ -95,12 +95,9 @@ int main(int argc, char *argv[]) {
 		std::cout <<"Matrix b3 " << e.what() << std::endl;	
 	}
 
-	std::cout << "Copy Const" << std::endl;
 	std::cout << "Done" << std::endl;
 	std::cout << "Getting elements and comparing to originals" << std::endl;
 	
-
-	std::cout << "END " << std::endl;
 	
 	try{
 		if(!test::compare(b1, a1, b1.rows(), b1.cols())) {

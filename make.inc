@@ -3,11 +3,11 @@
 CXX:=g++-4.8
 DBG:=-DDBG
 CXXFLAGS:=-fPIC -std=c++11 $(DBG)
-LDFLAGS:=-shared
+LDFLAGS:=-lopenblas -lMatrix
 OPTS:=-O2
 
 .SUFFIXES: .c .cu .cpp .cpp.u .c.o .cu.o
 
 LIB:=
-LIBDIR:=
-
+LIBDIR:=-L/opt/numerical/lib -L../lib
+INCLUDE:=-I/opt/numerical/include -I../include

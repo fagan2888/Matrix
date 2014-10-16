@@ -3,10 +3,6 @@ include ../make.inc
 ADDSUB:=addsub
 GETSET:=getset
 TEST:=test
-LIB:=-lMatrix
-LIBDIR:=-L../lib
-INCLUDE:=-I../include
-LDFLAGS:=
 SRC_GETSET:=getsetelements.cpp
 SRC_ADDSUB=addsub.cpp
 SRC_TEST=testing.cpp
@@ -19,13 +15,13 @@ ALL=$(GETSET) $(ADDSUB) $(TEST)
 all:$(ALL)
 
 $(ADDSUB): $(OBJS_ADDSUB)
-	$(CXX) -o $@ $< $(LIBDIR) $(LIB)
+	$(CXX) -o $@ $< $(LIBDIR) $(LDFLAGS)
 
 $(GETSET): $(OBJS_GETSET)
-	$(CXX) -o $@ $< $(LIBDIR) $(LIB)
+	$(CXX) -o $@ $< $(LIBDIR) $(LDFLAGS)
 
 $(TEST): $(OBJS_TEST)
-	$(CXX) -o $@ $< $(LIBDIR) $(LIB)
+	$(CXX) -o $@ $< $(LIBDIR) $(LDFLAGS)
 
 $(OBJS_TEST): $(SRC_TEST)
 	$(CXX) $(CXXFLAGS) $(OPTS) $(INCLUDE) -o $@ -c $<
