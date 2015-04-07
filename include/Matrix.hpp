@@ -1,98 +1,194 @@
-#ifndef __TEST_
-#define __TEST_
+#ifndef __INSTRUMENT__
+#define __INSTRUMENT__
 
-#define FAIL "Test has failed"
-#include<iostream>
-#include<Matrix.hpp>
-class test{
+#include<string>
+#include<exception>
+#include<stdexcept>
+#include<cblas.h>
+template<class T>class Matrix{
+	
+	private:
+		T *matrix;
+		int nrows;
+		int ncols;
+		std::string type = "Matrix";		
+		void allocate() {
+#ifdef DBG
+	std::cout << "Allocating array" << std::endl;
+#endif
+			matrix = new T[nrows * ncols];
+		};
+		void deallocate() {
+#ifdef DBG
+	std::cout << "Deallocating array" << std::endl;
+#endif
+			delete[] matrix;
+		};
 
-	public:
-	test(){
-		std::cout << "Initialising Test Data" << std::endl;
-	}
+		T &Set(int row, int col) {	
+			if(row < 0 || col < 0)
+				throw std::invalid_argument(std::string("Elements cannot be less than 0"));	
+			if (row >= nrows || col >= ncols)
+				throw std::invalid_argument(std::string("Element out of bounds"));
+			return *(matrix + row * ncols + col);
+		};
 
-	template<class T> static void inittestmatrix(T **&a, int m, int n) {
-		for(int i = 0; i < m; ++i) {
-			for(int j = 0; j < n; ++j) {
-				a[i][j] = static_cast<T>(i * n + j);
+		T Get(int row, int col) const{
+			if(row < 0 || col < 0)
+				throw std::invalid_argument(std::string("Elements cannot be less than 0"));	
+			if (row >= nrows || col >= ncols)
+				throw std::invalid_argument(std::string("Element out of bounds"));
+			return matrix[row * ncols + col];
+		};
+
+		
+		public:
+		Matrix(){
+#ifdef DBG
+			std::cout << "Constructing Matrix" << std::endl;
+#endif	
+			nrows = 1;
+			ncols = 1;
+			allocate();
+		};
+
+		Matrix(int nrows_, int ncols_){
+#ifdef DBG
+			std::cout << "Constructing Matrix" << std::endl;
+#endif	
+			nrows = nrows_;
+			ncols = ncols_;
+			allocate();
+		};
+		
+		Matrix(const Matrix &b) {
+#ifdef DBG
+	std::cout << "Copy Constructor" << std::endl;
+#endif
+			this->deallocate();
+			this->nrows = b.rows();
+			this->ncols = b.cols();
+			this->allocate();
+			for(int i = 0; i < this->nrows; ++i) {
+				for(int j = 0; j < this->ncols; ++j) {
+					this->matrix[i * nrows + j] = b.matrix[i * b.rows() + j];
+				}
 			}
 		}
-	}
+		~Matrix(){
+#ifdef DBG
+			std::cout << "De-constructing Matrix" << std::endl;
+#endif	
+			deallocate();
+		};
 
-	template<class T> static void malloc2d(T **&a, int m, int n) {
+		std::string name() const {
+			return type;
+		}
+		int rows() const{
+			return nrows;
+		};
 		
-		a = new T *[m];
-		for(int i = 0; i < m; ++i)
-			a[i] = new T[n];  
-	}
-
-	template<class T> static void dealloc2d(T **&a, int m, int n) {
-	
-		for(int i = 0; i < m; ++i)
-			delete[] a[i];
-
-		delete[] a;
-	}
-	template<class T> static void inittestMatrix(Matrix<T> &a){
-		if(a.rows() == 0 || a.cols() == 0) {
-			throw std::invalid_argument(std::string("#cols/#rows cannot be equal to 0"));	
-		}
-		for(int i = 0; i < a.rows(); ++i){
-			for(int j = 0; j < a.cols(); ++j)
-				a(i, j) = static_cast<T>(i * a.cols() + j); 
-		}
-	}
-
-	template<class T> static void printmatrix(T **&a, int m, int n) {
-		for(int i = 0; i < m; ++i) {
-			for(int j = 0; j < n; ++j)
-				std::cout << a[i][j] << " ";
-			std::cout << "\n";
-		}
-	}
-	template<class T> static void printMatrix(Matrix<T> &a) {
-		if(a.rows() == 0 || a.cols() == 0) {
-			throw std::invalid_argument(std::string("#cols/#rows cannot be equal to 0. Nothing to print here..."));	
-		}
-		for(int i = 0; i < a.rows(); ++i) {
-			for(int j = 0; j < a.cols(); ++j)
-				std::cout << a(i, j) << " ";
-			std::cout << "\n";
-		}
-	}
-
-	template<class T> static void add2d(T **&a, T **&b, T **&c, int m, int n) {
+		int cols() const{
+			return ncols;
+		};
 		
-		for(int i = 0; i < m; ++i) {
-			for(int j = 0; j < n; ++j)
-				c[i][j] = a[i][j] + b[i][j];
+		Matrix& operator = (const Matrix &b) {
+#ifdef DBG
+	std::cout << "= Operator" << std::endl;
+#endif
+			this->deallocate();
+			this->nrows = b.rows();
+			this->ncols = b.cols();
+			this->allocate();
+			for(int i = 0; i < this->nrows; ++i) {
+				for(int j = 0; j < this->ncols; ++j) {
+					this->matrix[i * nrows + j] = b.matrix[i * b.rows() + j];
+				}
+			}
+			return *this;
 		}
 
-	}
-	
-	template<class T> static void subtract2d(T **&a, T **&b, T **&c, int m, int n) {
+		T operator () (int i, int j) const{	
+			if(i < 0 || j < 0)
+				throw std::invalid_argument(std::string("Elements cannot be less than 0"));	
+			if (i >= nrows || j >= ncols)
+				throw std::invalid_argument(std::string("Element out of bounds"));
+			return Get(i, j);
+		}
+
+		T &operator () (int i, int j) {	
+			if(i < 0 || j < 0)
+				throw std::invalid_argument(std::string("Elements cannot be less than 0"));	
+			if (i >= nrows || j >= ncols)
+				throw std::invalid_argument(std::string("Element out of bounds"));
+			return Set(i, j);
+		}
+
+		Matrix multiply(const Matrix &a, const Matrix &b){
+#ifdef DBG
+	std::cout << "Multiplying Matrix" << std::endl;
+#endif
+			if(a.cols() != b.rows())
+				throw std::invalid_argument(std::string("Matrix dimensions are not compatible for multiplication"));
+			Matrix c(a.rows(), b.cols());
 		
-		for(int i = 0; i < m; ++i) {
-			for(int j = 0; j < n; ++j)
-				c[i][j] = a[i][j] - b[i][j];
+			return c;
+		}
+		
+		Matrix operator * (const Matrix &b) {	
+			return multiply(*this, b);
+		}
+		
+		Matrix add(const Matrix &a, const Matrix &b) const{
+#ifdef DBG
+	std::cout << "Adding Matrix" << std::endl;
+#endif
+			Matrix c(a.rows(), a.cols());
+			if((a.cols() != b.cols()) && (a.rows() != b.rows()))
+				throw std::invalid_argument(std::string("Matrix dimensions are not compatible for addition"));
+			
+			for(int i = 0; i < a.rows(); ++i) {
+				for(int j = 0; j < a.cols(); ++j) {
+					c.matrix[i * c.rows() + j] = a.matrix[i * a.rows() + j] + b.matrix[i * b.rows() + j];
+				}
+			}
+
+			return c;
+		}
+		Matrix operator + (const Matrix &b) {	
+			
+			return add(*this, b);
+		}
+		
+		Matrix subtract(const Matrix &a, const Matrix &b) {
+#ifdef DBG
+	std::cout << "Subtracting Matrix" << std::endl;
+#endif
+			if((a.cols() != b.cols()) && (a.rows() != b.rows()))
+				throw std::invalid_argument(std::string("Matrix dimensions are not compatible for subtraction"));
+		
+			Matrix c(a.rows(), a.cols());
+			for(int i = 0; i < a.rows(); ++i) {
+				for(int j = 0; j < a.cols(); ++j) {
+					c.matrix[i * c.rows() + j] = a.matrix[i * a.rows() + j] - b.matrix[i * b.rows() + j];
+				}
+			}
+
+			return c;
 		}
 
-	}
-	template<class T> static bool compare(Matrix<T> &a, T** &b, int m, int n){
-		if(a.rows() != m || a.cols() != n)
-			return false;
+		Matrix operator - (const Matrix &b) {
+			
+			return subtract(*this, b);
+		}
 
-		bool success = true;
-		for(int i = 0; i < m; ++i) {
-			for(int j = 0; j < n; ++j) {
-				if(b[i][j] != a(i, j))
-					success = false;
+		void print() const{
+			for (int i = 0; i < nrows; ++i) {
+				for(int j = 0; j < ncols; ++j)
+					std::cout << this->Get(i, j) << " ";
+				std::cout << "\n";
 			}
 		}
-
-		return success;
-	}
-	
 };
-
 #endif

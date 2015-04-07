@@ -95,12 +95,33 @@ int main(int argc, char *argv[]) {
 		std::cout <<"Matrix b3 " << e.what() << std::endl;	
 	}
 
+	try {
+		ansMatrix1 = b1 + b1;
+	} 
+	catch(std::exception &e){
+		std::cout <<"Matrix ans1 " << e.what() << std::endl;	
+	}
+
+	try {
+		ansMatrix2 = b2 + b2;
+	} 
+	catch(std::exception &e){
+		std::cout <<"Matrix ans2 " << e.what() << std::endl;	
+	}
+
+	try {
+		ansMatrix1 = b3 + b3;
+	} 
+	catch(std::exception &e){
+		std::cout <<"Matrix ans3 " << e.what() << std::endl;	
+	}
+
 	std::cout << "Done" << std::endl;
 	std::cout << "Getting elements and comparing to originals" << std::endl;
 	
 	
 	try{
-		if(!test::compare(b1, a1, b1.rows(), b1.cols())) {
+		if(!test::compare(ansMatrix1, a1, b1.rows(), b1.cols())) {
 			success[testindex] = false;
 			++testindex;
 			throw std::runtime_error(std::string("Test for Matrix 1 (4 x 1) Failed"));
@@ -112,7 +133,7 @@ int main(int argc, char *argv[]) {
 
 
 	try{
-		if(!test::compare(b2, a2, b2.rows(), b2.cols())) { 
+		if(!test::compare(ansMatrix2, a2, b2.rows(), b2.cols())) { 
 			success[testindex] = false;
 			++testindex;
 			throw std::runtime_error(std::string("Test for Matrix 2 (1 x 4) Failed"));
@@ -123,7 +144,7 @@ int main(int argc, char *argv[]) {
 	}
 
 	try{
-		if(!test::compare(b3, a3, b3.rows(), b3.cols())) { 
+		if(!test::compare(ansMatrix3, a3, b3.rows(), b3.cols())) { 
 			success[testindex] = false;
 			++testindex;
 			throw std::runtime_error(std::string("Test for Matrix 3 (4 x 4) Failed"));

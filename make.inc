@@ -1,7 +1,7 @@
 #CPP Makefile Joshi Cpp
 
-CXX:=g++-4.8
-DBG:=-DDBG
+CXX:=g++-4.9
+DBG:=#-DDBG
 CXXFLAGS:=-fPIC -std=c++11 $(DBG)
 LDFLAGS:=-lopenblas -lMatrix
 OPTS:=-O2

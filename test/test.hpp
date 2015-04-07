@@ -28,7 +28,7 @@ class test{
 
 	template<class T> static void dealloc2d(T **&a, int m, int n) {
 	
-		for(int i = 0; i < m; ++i)
+		for(int i = 0; i < n; ++i)
 			delete[] a[i];
 
 		delete[] a;
@@ -50,17 +50,7 @@ class test{
 			std::cout << "\n";
 		}
 	}
-	template<class T> static void printMatrix(Matrix<T> &a) {
-		if(a.rows() == 0 || a.cols() == 0) {
-			throw std::invalid_argument(std::string("#cols/#rows cannot be equal to 0. Nothing to print here..."));	
-		}
-		for(int i = 0; i < a.rows(); ++i) {
-			for(int j = 0; j < a.cols(); ++j)
-				std::cout << a(i, j) << " ";
-			std::cout << "\n";
-		}
-	}
-
+	
 	template<class T> static void add2d(T **&a, T **&b, T **&c, int m, int n) {
 		
 		for(int i = 0; i < m; ++i) {
