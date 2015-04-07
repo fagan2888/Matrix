@@ -12,8 +12,8 @@ class test{
 	}
 
 	template<class T> static void inittestmatrix(T **&a, int m, int n) {
-		for(int i = 0; i < m; i++) {
-			for(int j = 0; j < n; j++) {
+		for(int i = 0; i < m; ++i) {
+			for(int j = 0; j < n; ++j) {
 				a[i][j] = static_cast<T>(i * n + j);
 			}
 		}
@@ -22,13 +22,13 @@ class test{
 	template<class T> static void malloc2d(T **&a, int m, int n) {
 		
 		a = new T *[m];
-		for(int i = 0; i < m; i++)
+		for(int i = 0; i < m; ++i)
 			a[i] = new T[n];  
 	}
 
 	template<class T> static void dealloc2d(T **&a, int m, int n) {
 	
-		for(int i = 0; i < n; i++)
+		for(int i = 0; i < m; ++i)
 			delete[] a[i];
 
 		delete[] a;
@@ -37,15 +37,15 @@ class test{
 		if(a.rows() == 0 || a.cols() == 0) {
 			throw std::invalid_argument(std::string("#cols/#rows cannot be equal to 0"));	
 		}
-		for(int i = 0; i < a.rows(); i++){
-			for(int j = 0; j < a.cols(); j++)
+		for(int i = 0; i < a.rows(); ++i){
+			for(int j = 0; j < a.cols(); ++j)
 				a(i, j) = static_cast<T>(i * a.cols() + j); 
 		}
 	}
 
 	template<class T> static void printmatrix(T **&a, int m, int n) {
-		for(int i = 0; i < m; i++) {
-			for(int j = 0; j < n; j++)
+		for(int i = 0; i < m; ++i) {
+			for(int j = 0; j < n; ++j)
 				std::cout << a[i][j] << " ";
 			std::cout << "\n";
 		}
@@ -54,8 +54,8 @@ class test{
 		if(a.rows() == 0 || a.cols() == 0) {
 			throw std::invalid_argument(std::string("#cols/#rows cannot be equal to 0. Nothing to print here..."));	
 		}
-		for(int i = 0; i < a.rows(); i++) {
-			for(int j = 0; j < a.cols(); j++)
+		for(int i = 0; i < a.rows(); ++i) {
+			for(int j = 0; j < a.cols(); ++j)
 				std::cout << a(i, j) << " ";
 			std::cout << "\n";
 		}
@@ -83,8 +83,8 @@ class test{
 			return false;
 
 		bool success = true;
-		for(int i = 0; i < m; i++) {
-			for(int j = 0; j < n; j++) {
+		for(int i = 0; i < m; ++i) {
+			for(int j = 0; j < n; ++j) {
 				if(b[i][j] != a(i, j))
 					success = false;
 			}
