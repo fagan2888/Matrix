@@ -16,13 +16,21 @@ template<class T>class Matrix{
 #ifdef DBG
 	std::cout << "Allocating array" << std::endl;
 #endif
-			matrix = new T[nrows * ncols];
-		};
+            try {
+			    matrix = new T[nrows * ncols];
+		    } catch (std::exception &e) {
+                throw;
+            }
+        };
 		void deallocate() {
 #ifdef DBG
 	std::cout << "Deallocating array" << std::endl;
 #endif
-			delete[] matrix;
+            try {
+			    delete[] matrix;
+            } catch (std::exception &e) {
+                throw;
+            }
 		};
 
 		T &Set(int row, int col) {	
@@ -49,7 +57,11 @@ template<class T>class Matrix{
 #endif	
 			nrows = 1;
 			ncols = 1;
-			allocate();
+            try{
+			    allocate(); 
+            } catch (std::exception &e) {
+                throw;
+            }
 		};
 
 		Matrix(int nrows_, int ncols_){
@@ -58,23 +70,37 @@ template<class T>class Matrix{
 #endif	
 			nrows = nrows_;
 			ncols = ncols_;
-			allocate();
+			try {
+                allocate();
+            } catch (std::exception &e) {
+                throw;
+            } 
 		};
 		
 		Matrix(const Matrix &b) {
 #ifdef DBG
 	std::cout << "Copy Constructor" << std::endl;
 #endif
-			this->deallocate();
-			this->nrows = b.rows();
+            try {
+			    this->deallocate();
+            } catch (std::exception &e) {
+                throw;
+            } 
+            this->nrows = b.rows();
 			this->ncols = b.cols();
-			this->allocate();
-			for(int i = 0; i < this->nrows; ++i) {
+			try {
+                this->allocate();
+            } catch (std::exception &e) {
+                throw;
+            } 
+			
+            for(int i = 0; i < this->nrows; ++i) {
 				for(int j = 0; j < this->ncols; ++j) {
-					this->matrix[i * nrows + j] = b.matrix[i * b.rows() + j];
+					this->Set(i, j) = b(i, j);
 				}
 			}
 		}
+
 		~Matrix(){
 #ifdef DBG
 			std::cout << "De-constructing Matrix" << std::endl;
@@ -97,13 +123,21 @@ template<class T>class Matrix{
 #ifdef DBG
 	std::cout << "= Operator" << std::endl;
 #endif
-			this->deallocate();
-			this->nrows = b.rows();
+		    try {
+			    this->deallocate();
+            } catch (std::exception &e) {
+                throw;
+            } 
+            this->nrows = b.rows();
 			this->ncols = b.cols();
-			this->allocate();
-			for(int i = 0; i < this->nrows; ++i) {
+			try {
+                this->allocate();
+            } catch (std::exception &e) {
+                throw;
+            } 	
+            for(int i = 0; i < this->nrows; ++i) {
 				for(int j = 0; j < this->ncols; ++j) {
-					this->matrix[i * nrows + j] = b.matrix[i * b.rows() + j];
+					this->Set(i, j) = b(i, j);
 				}
 			}
 			return *this;
@@ -144,22 +178,25 @@ template<class T>class Matrix{
 #ifdef DBG
 	std::cout << "Adding Matrix" << std::endl;
 #endif
-			Matrix c(a.rows(), a.cols());
-			if((a.cols() != b.cols()) && (a.rows() != b.rows()))
+			    
+            Matrix c(a.rows(), a.cols());
+
+            if((a.cols() != b.cols()) && (a.rows() != b.rows()))
 				throw std::invalid_argument(std::string("Matrix dimensions are not compatible for addition"));
-			
+		
 			for(int i = 0; i < a.rows(); ++i) {
 				for(int j = 0; j < a.cols(); ++j) {
-					c.matrix[i * c.rows() + j] = a.matrix[i * a.rows() + j] + b.matrix[i * b.rows() + j];
-				}
+					c(i, j) = a(i, j) + b(i, j);
+                }
 			}
 
 			return c;
 		}
 		Matrix operator + (const Matrix &b) {	
 			
-			return add(*this, b);
-		}
+            return add(*this, b);
+
+	    }
 		
 		Matrix subtract(const Matrix &a, const Matrix &b) {
 #ifdef DBG
@@ -167,11 +204,12 @@ template<class T>class Matrix{
 #endif
 			if((a.cols() != b.cols()) && (a.rows() != b.rows()))
 				throw std::invalid_argument(std::string("Matrix dimensions are not compatible for subtraction"));
-		
-			Matrix c(a.rows(), a.cols());
-			for(int i = 0; i < a.rows(); ++i) {
+		        
+            Matrix c(a.rows(), a.cols());
+            
+            for(int i = 0; i < a.rows(); ++i) {
 				for(int j = 0; j < a.cols(); ++j) {
-					c.matrix[i * c.rows() + j] = a.matrix[i * a.rows() + j] - b.matrix[i * b.rows() + j];
+					c(i, j) = a(i, j) - b(i, j);
 				}
 			}
 
@@ -179,8 +217,11 @@ template<class T>class Matrix{
 		}
 
 		Matrix operator - (const Matrix &b) {
-			
-			return subtract(*this, b);
+	        try{		
+			    return subtract(*this, b);
+            } catch (std::invalid_argument &ex) {
+                throw ex;
+            }
 		}
 
 		void print() const{
@@ -189,6 +230,8 @@ template<class T>class Matrix{
 					std::cout << this->Get(i, j) << " ";
 				std::cout << "\n";
 			}
+
+            std::cout << "\n";
 		}
 };
 #endif

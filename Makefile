@@ -1,7 +1,9 @@
 
-all: libMatrix test
+all: test
 
-lib: 
+
+test: 
+	cd test && $(MAKE)
 
 libMatrix: 
 	cd src && $(MAKE)

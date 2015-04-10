@@ -1,20 +1,27 @@
 include ../make.inc
 
-ADDSUB:=addsub
+ADD:=add
+SUB:=sub
 GETSET:=getset
 TEST:=test
 SRC_GETSET:=getsetelements.cpp
-SRC_ADDSUB=addsub.cpp
+SRC_ADD=add.cpp
+SRC_SUB=sub.cpp
 SRC_TEST=testing.cpp
 OBJS_GETSET:=$(patsubst %.cpp,%.cpp.o,$(SRC_GETSET))
-OBJS_ADDSUB:=$(patsubst %.cpp,%.cpp.o,$(SRC_ADDSUB))
+OBJS_ADD:=$(patsubst %.cpp,%.cpp.o,$(SRC_ADD))
+OBJS_SUB:=$(patsubst %.cpp,%.cpp.o,$(SRC_SUB))
 OBJS_TEST:=$(patsubst %.cpp,%.cpp.o,$(SRC_TEST))
-OBJS:=$(OBJS_GETSET) $(OBJS_ADDSUB) $(OBJS_TEST)
+OBJS:=$(OBJS_GETSET) $(OBJS_ADD) $(OBJS_TEST) $(OBJS_SUB)
 
-ALL=$(GETSET) $(ADDSUB) $(TEST)
+ALL=$(GETSET) $(ADD) $(SUB) $(TEST)
+
 all:$(ALL)
 
-$(ADDSUB): $(OBJS_ADDSUB)
+$(ADD): $(OBJS_ADD)
+	$(CXX) -o $@ $< $(LIBDIR) $(LDFLAGS)
+
+$(SUB): $(OBJS_SUB)
 	$(CXX) -o $@ $< $(LIBDIR) $(LDFLAGS)
 
 $(GETSET): $(OBJS_GETSET)
@@ -29,10 +36,14 @@ $(OBJS_TEST): $(SRC_TEST)
 $(OBJS_GETSET): $(SRC_GETSET)
 	$(CXX) $(CXXFLAGS) $(OPTS) $(INCLUDE) -o $@ -c $<
 
-$(OBJS_ADDSUB): $(SRC_ADDSUB)
+$(OBJS_ADD): $(SRC_ADD)
+	$(CXX) $(CXXFLAGS) $(OPTS) $(INCLUDE) -o $@ -c $<
+
+$(OBJS_SUB): $(SRC_SUB)
 	$(CXX) $(CXXFLAGS) $(OPTS) $(INCLUDE) -o $@ -c $<
 
 clean:
 	rm $(OBJS)
+
 cleanall:
 	rm $(OBJS) $(ALL)

@@ -28,6 +28,7 @@ int main(int argc, char *argv[]) {
 	}
 	
 
+
 	b = b1 - b1;
 	std::cout << "\n";
 	b.print();

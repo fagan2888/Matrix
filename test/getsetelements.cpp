@@ -16,8 +16,9 @@ int main(int argc, char *argv[]) {
 	std::vector<bool> success;
 	int numtests = 4;
 	int testindex = 0;
-
-	for(int i = 0; i < numtests; ++i) 
+    TYPE tol = 1e-06;
+	
+    for(int i = 0; i < numtests; ++i) 
 		success.push_back(true);
 
 	try {
@@ -96,7 +97,7 @@ int main(int argc, char *argv[]) {
 	}
 
 	try{
-		if(!test::compare(b1, a1, b1.rows(), b1.cols())) {
+		if(!test::compare(b1, a1, b1.rows(), b1.cols(), tol)) {
 			success[testindex] = false;
 			++testindex;
 			throw std::runtime_error(std::string("Test for Matrix 1 (4 x 1) Failed"));
@@ -108,7 +109,7 @@ int main(int argc, char *argv[]) {
 
 
 	try{
-		if(!test::compare(b2, a2, b2.rows(), b2.cols())) { 
+		if(!test::compare(b2, a2, b2.rows(), b2.cols(), tol)) { 
 			success[testindex] = false;
 			++testindex;
 			throw std::runtime_error(std::string("Test for Matrix 2 (1 x 4) Failed"));
@@ -119,7 +120,7 @@ int main(int argc, char *argv[]) {
 	}
 
 	try{
-		if(!test::compare(b3, a3, b3.rows(), b3.cols())) { 
+		if(!test::compare(b3, a3, b3.rows(), b3.cols(), tol)) { 
 			success[testindex] = false;
 			++testindex;
 			throw std::runtime_error(std::string("Test for Matrix 3 (4 x 4) Failed"));
@@ -129,7 +130,7 @@ int main(int argc, char *argv[]) {
 		std::cout << e.what() << std::endl;	
 	}
 
-	for(std::vector<bool>::iterator it = success.begin(); it != success.end(); ++it) {
+	for(std::vector<bool>::iterator it = success.end(); it != success.begin(); --it) {
 		if(*it)
 			std::cout << "Test " << std::distance(success.begin(), it) <<" was successful" << std::endl;
 		else

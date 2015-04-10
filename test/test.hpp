@@ -3,6 +3,7 @@
 
 #define FAIL "Test has failed"
 #include<iostream>
+#include<cmath>
 #include<Matrix.hpp>
 class test{
 
@@ -68,14 +69,14 @@ class test{
 		}
 
 	}
-	template<class T> static bool compare(Matrix<T> &a, T** &b, int m, int n){
+	template<class T> static bool compare(Matrix<T> &a, T** &b, int m, int n, double tol){
 		if(a.rows() != m || a.cols() != n)
 			return false;
 
 		bool success = true;
 		for(int i = 0; i < m; ++i) {
 			for(int j = 0; j < n; ++j) {
-				if(b[i][j] != a(i, j))
+				if(std::abs(b[i][j] - a(i, j)) > tol)
 					success = false;
 			}
 		}
