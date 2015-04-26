@@ -5,6 +5,9 @@
 #include<iostream>
 #include<cmath>
 #include<Matrix.hpp>
+
+using namespace GPUMatrix;
+
 class test{
 
 	public:

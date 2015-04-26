@@ -131,12 +131,6 @@ int main(int argc, char *argv[]) {
 		std::cout <<"Matrix ans3 " << e.what() << std::endl;	
 	}
 	
-    try {
-		ansMatrix3 = b1 - b3;
-    } 
-	catch(std::invalid_argument &e){
-        std::cout <<"Matrix ans3 " << e.what() << std::endl;	
-	}
 	
     std::cout << "Done" << std::endl;
 	std::cout << "Getting elements and comparing to originals" << std::endl;
@@ -168,6 +162,7 @@ int main(int argc, char *argv[]) {
 		if(!test::compare(ansMatrix3, ans3, ansMatrix3.rows(), ansMatrix3.cols(), tol)) { 
 			success[testindex] = false;
 			++testindex;
+			std::cout << "here" << std::endl;
 			throw std::runtime_error(std::string("Test for Matrix 3 (4 x 4) Failed"));
 		}
 	}

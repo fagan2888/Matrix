@@ -1,8 +1,7 @@
 
 all: test
 
-
-test: 
+test:
 	cd test && $(MAKE)
 
 libMatrix: 

@@ -8,6 +8,6 @@ OPTS:=-O2
 
 .SUFFIXES: .c .cu .cpp .cpp.u .c.o .cu.o
 
-LIB:=
-LIBDIR:=-L/home/nashp/tools/lib -L../lib
-INCLUDE:=-I/home/nashp/tools/include -I../include
+LIB:=/opt/numerical
+LIBDIR:=-L${LIB}/lib -L../lib
+INCLUDE:=-I${LIB}/include -I../include
