@@ -7,6 +7,7 @@
 #include<Matrix.hpp>
 
 using namespace GPUMatrix;
+#define Real double
 
 class test{
 

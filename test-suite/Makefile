@@ -1,23 +1,22 @@
 include ../make.inc
 
+LIBDIR:=$(LIBDIR) -L$(BOOSTLIB)/lib
+LDFLAGS:=$(LDFLAGS) -lboost_unit_test_framework
 ADD:=add
 SUB:=sub
 GETSET:=getset
 TEST:=test
-BOOST:=boost_test
 SRC_GETSET:=getsetelements.cpp
 SRC_ADD=add.cpp
 SRC_SUB=sub.cpp
 SRC_TEST=testing.cpp
-SRC_BOOST=boost_test.cpp
 OBJS_GETSET:=$(patsubst %.cpp,%.cpp.o,$(SRC_GETSET))
 OBJS_ADD:=$(patsubst %.cpp,%.cpp.o,$(SRC_ADD))
 OBJS_SUB:=$(patsubst %.cpp,%.cpp.o,$(SRC_SUB))
 OBJS_TEST:=$(patsubst %.cpp,%.cpp.o,$(SRC_TEST))
-OBJS_BOOST:=$(patsubst %.cpp,%.cpp.o,$(SRC_BOOST))
-OBJS:=$(OBJS_GETSET) $(OBJS_ADD) $(OBJS_TEST) $(OBJS_SUB) $(OBJS_BOOST)
+OBJS:=$(OBJS_GETSET) $(OBJS_ADD) $(OBJS_TEST) $(OBJS_SUB)
 
-ALL=$(GETSET) $(ADD) $(SUB) $(TEST)
+ALL=$(GETSET) $(ADD) $(SUB) $(TEST) $(BOOST)
 
 all:$(ALL)
 
@@ -46,9 +45,6 @@ $(OBJS_ADD): $(SRC_ADD)
 	$(CXX) $(CXXFLAGS) $(OPTS) $(INCLUDE) -o $@ -c $<
 
 $(OBJS_SUB): $(SRC_SUB)
-	$(CXX) $(CXXFLAGS) $(OPTS) $(INCLUDE) -o $@ -c $<
-
-$(OBJS_BOOST): $(SRC_BOOST)	
 	$(CXX) $(CXXFLAGS) $(OPTS) $(INCLUDE) -o $@ -c $<
 
 clean:
