@@ -1,13 +1,13 @@
-#CPP Makefile Joshi Cpp
+#CPP Makefile
 
 CXX:=g++
-DBG:=#-DDBG
+DBG:=-DDBG
 CXXFLAGS:=-std=c++11 $(DBG)
 LDFLAGS:=-lopenblas
-OPTS:=-O2
+OPTS:=-O2 
 
 .SUFFIXES: .c .cu .cpp .cpp.u .c.o .cu.o
 
-LIB:=/opt/numerical
+LIB:=/home/nashp/tools
 LIBDIR:=-L${LIB}/lib -L../lib
-INCLUDE:=-I${LIB}/include -I../include
+INCLUDE:=-I${LIB}/include -I../include -I/home/nashp/Documents/Boost/1.56

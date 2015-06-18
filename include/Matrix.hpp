@@ -5,13 +5,15 @@
 #include<exception>
 #include<stdexcept>
 #include<cblas.h>
+#include<boost/smart_ptr/allocate_shared_array.hpp>
+#include<boost/smart_ptr/make_shared_array.hpp>
 
 namespace GPUMatrix {
 
 	template<class T>class Matrix{
 
 		private:
-			T *matrix;
+			boost::shared_ptr<T[]> matrix;
 			int nrows;
 			int ncols;
 			const std::string type = "Matrix";		
@@ -20,7 +22,7 @@ namespace GPUMatrix {
 				std::cout << "Allocating array" << std::endl;
 #endif
 				try {
-					matrix = new T[nrows * ncols];
+					matrix = boost::make_shared<T[]>(nrows * ncols, 0.0);
 				} catch (std::exception &e) {
 					throw;
 				}
@@ -29,11 +31,6 @@ namespace GPUMatrix {
 #ifdef DBG
 				std::cout << "Deallocating array" << std::endl;
 #endif
-				try {
-					delete[] matrix;
-				} catch (std::exception &e) {
-					throw;
-				}
 			};
 
 			T &Set(const int row_, const int col_) {	
@@ -41,7 +38,7 @@ namespace GPUMatrix {
 					throw std::invalid_argument(std::string("Elements cannot be less than 0"));	
 				if (row_ >= nrows || col_ >= ncols)
 					throw std::invalid_argument(std::string("Element out of bounds"));
-				return *(matrix + row_ * ncols + col_);
+				return *(matrix.get() + row_ * ncols + col_);
 			};
 
 			const T Get(const int row_, const int col_) const{
@@ -51,7 +48,6 @@ namespace GPUMatrix {
 					throw std::invalid_argument(std::string("Element out of bounds"));
 				return matrix[row_ * ncols + col_];
 			};
-
 
 		public:
 			explicit Matrix(){
@@ -103,7 +99,6 @@ namespace GPUMatrix {
 #ifdef DBG
 				std::cout << "De-constructing Matrix" << std::endl;
 #endif	
-				deallocate();
 			};
 
 			const std::string name() const {
@@ -138,6 +133,7 @@ namespace GPUMatrix {
 						this->Set(i, j) = b(i, j);
 					}
 				}
+
 				return *this;
 			}
 

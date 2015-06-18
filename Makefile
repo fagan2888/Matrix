@@ -2,18 +2,18 @@
 all: test
 
 test:
-	cd test && $(MAKE)
+	cd test-suite && $(MAKE)
 
 libMatrix: 
 	cd src && $(MAKE)
-	cd test && $(MAKE)
+	cd test-suite && $(MAKE)
 
 lib:
 	cd src && $(MAKE)
 
 clean: 
 	cd src && $(MAKE) cleanall
-	cd test && $(MAKE) cleanall
+	cd test-suite && $(MAKE) cleanall
 
 cleanlib:
 	cd src && $(MAKE) cleanall
