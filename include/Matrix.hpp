@@ -51,8 +51,8 @@ namespace GPUMatrix {
                     throw;
                 } 
 
-                for(int i = 0; i < this->nrows; ++i) {
-                    for(int j = 0; j < this->ncols; ++j) {
+                for(int i = 0; i < this->ncols; ++i) {
+                    for(int j = 0; j < this->nrows; ++j) {
                         this->Set(i, j) = b(i, j);
                     }
                 }
@@ -91,8 +91,8 @@ namespace GPUMatrix {
                 } catch (std::exception &e) {
                     throw;
                 } 	
-                for(int i = 0; i < this->nrows; ++i) {
-                    for(int j = 0; j < this->ncols; ++j) {
+                for(int i = 0; i < this->ncols; ++i) {
+                    for(int j = 0; j < this->nrows; ++j) {
                         this->Set(i, j) = b(i, j);
                     }
                 }
@@ -140,8 +140,8 @@ namespace GPUMatrix {
                 if((a.cols() != b.cols()) || (a.rows() != b.rows()))
                     throw std::invalid_argument(std::string("Matrix dimensions are not compatible for addition"));
 
-                for(int i = 0; i < a.rows(); ++i) {
-                    for(int j = 0; j < a.cols(); ++j) {
+                for(int i = 0; i < a.cols(); ++i) {
+                    for(int j = 0; j < a.rows(); ++j) {
                         c(i, j) = a(i, j) + b(i, j);
                     }
                 }
@@ -161,8 +161,8 @@ namespace GPUMatrix {
 
                 Matrix c(a.rows(), a.cols());
 
-                for(int i = 0; i < a.rows(); ++i) {
-                    for(int j = 0; j < a.cols(); ++j) {
+                for(int i = 0; i < a.cols(); ++i) {
+                    for(int j = 0; j < a.rows(); ++j) {
                         c(i, j) = a(i, j) - b(i, j);
                     }
                 }
@@ -174,8 +174,8 @@ namespace GPUMatrix {
             }
 
             void print() const{
-                for (int i = 0; i < nrows; ++i) {
-                    for(int j = 0; j < ncols; ++j)
+                for (int i = 0; i < ncols; ++i) {
+                    for(int j = 0; j < nrows; ++j)
                         std::cout << this->Get(i, j) << " ";
                     std::cout << "\n";
                 }
@@ -208,7 +208,7 @@ namespace GPUMatrix {
                     throw std::invalid_argument(std::string("Elements cannot be less than 0"));	
                 if (row_ >= nrows || col_ >= ncols)
                     throw std::invalid_argument(std::string("Element out of bounds"));
-                return *(matrix.get() + row_ * ncols + col_);
+                return *(matrix.get() + col_ * nrows + row_);
             };
 
             const T Get(const int row_, const int col_) const{
@@ -216,7 +216,7 @@ namespace GPUMatrix {
                     throw std::invalid_argument(std::string("Elements cannot be less than 0"));	
                 if (row_ >= nrows || col_ >= ncols)
                     throw std::invalid_argument(std::string("Element out of bounds"));
-                return matrix[row_ * ncols + col_];
+                return matrix[col_ * nrows + row_];
             };
 
 
@@ -224,8 +224,8 @@ namespace GPUMatrix {
 	};
 
 	template<class T>std::ostream& operator<<(std::ostream& os, const Matrix<T> &b) {
-		    for(int i = 0; i < b.rows(); ++i) {
-			    for(int j = 0; j < b.cols(); ++j) {
+		    for(int i = 0; i < b.cols(); ++i) {
+			    for(int j = 0; j < b.rows(); ++j) {
 				    os << b(i, j) << " ";
 		    }
 		    os << "\n";

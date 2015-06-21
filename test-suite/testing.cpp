@@ -9,7 +9,8 @@
 int main(int argc, char *argv[]) {
 
 
-    auto my_shared_ptr = boost::make_shared<double[]>(32, 1.0); 
+	
+  ` `auto my_shared_ptr = boost::make_shared<double[]>(32, 1.0); 
 
     for(int i = 0; i < 32; ++i) { 
         std::cout << *(my_shared_ptr.get() + i) << std::endl;
