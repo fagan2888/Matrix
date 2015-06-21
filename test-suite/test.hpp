@@ -8,6 +8,7 @@
 
 using namespace GPUMatrix;
 #define Real double
+#define TOL 1e-06
 
 class test{
 
@@ -39,9 +40,6 @@ class test{
 		delete[] a;
 	}
 	template<class T> static void inittestMatrix(Matrix<T> &a){
-		if(a.rows() == 0 || a.cols() == 0) {
-			throw std::invalid_argument(std::string("#cols/#rows cannot be equal to 0"));	
-		}
 		for(int i = 0; i < a.rows(); ++i){
 			for(int j = 0; j < a.cols(); ++j)
 				a(i, j) = static_cast<T>(i * a.cols() + j); 

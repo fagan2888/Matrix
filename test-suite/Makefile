@@ -3,12 +3,12 @@ include ../make.inc
 LIBDIR:=$(LIBDIR) -L$(BOOSTLIB)/lib
 LDFLAGS:=$(LDFLAGS) -lboost_unit_test_framework
 ADD:=add
-SUB:=sub
+SUB:=subtract
 GETSET:=getset
 TEST:=test
 SRC_GETSET:=getsetelements.cpp
 SRC_ADD=add.cpp
-SRC_SUB=sub.cpp
+SRC_SUB=subtract.cpp
 SRC_TEST=testing.cpp
 OBJS_GETSET:=$(patsubst %.cpp,%.cpp.o,$(SRC_GETSET))
 OBJS_ADD:=$(patsubst %.cpp,%.cpp.o,$(SRC_ADD))
