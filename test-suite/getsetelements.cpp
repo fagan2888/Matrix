@@ -6,30 +6,30 @@ BOOST_AUTO_TEST_SUITE (GetSetTest) // name of the test suite is stringtest
 
 BOOST_AUTO_TEST_CASE (testsquarematrix)
 {
-	int m = 4; 
-	int n = 4;
-	GPUMatrix::Matrix<Real> a(m, n); 
+	int rows = 4; 
+	int cols = 4;
+	GPUMatrix::Matrix<Real> a(rows, cols); 
 
-	for(int i = 0; i < m; ++i) {
-		for(int j = 0; j < n; ++j) {
-			a(i , j) = static_cast<Real> (i * n + j);
-            BOOST_CHECK(a(i, j) == static_cast<Real> (i * n + j));
+	for(int i = 0; i < rows; ++i) {
+		for(int j = 0; j < cols; ++j) {
+			a(i , j) = static_cast<Real> (i * rows + j);
+            BOOST_CHECK(a(i, j) == static_cast<Real> (i * cols + j));
 		}
 	}
 
-	
 
 }
+
 BOOST_AUTO_TEST_CASE (testrowmatrix)
 {
-	int m = 4; 
-	int n = 1;
-	GPUMatrix::Matrix<Real> a(m, n); 
+	int rows = 4; 
+	int cols = 1;
+	GPUMatrix::Matrix<Real> a(rows, cols); 
 
-	for(int i = 0; i < m; ++i) {
-		for(int j = 0; j < n; ++j) {
-			a(i , j) = static_cast<Real> (i * n + j);
-			BOOST_CHECK(a(i, j) == static_cast<Real> (i * n + j));
+	for(int i = 0; i < rows; ++i) {
+		for(int j = 0; j < cols; ++j) {
+			a(i , j) = static_cast<Real> (i * cols + j);
+			BOOST_CHECK(a(i, j) == static_cast<Real> (i * cols + j));
 		}
 	}
 
@@ -39,14 +39,14 @@ BOOST_AUTO_TEST_CASE (testrowmatrix)
 
 BOOST_AUTO_TEST_CASE (testcolmatrix)
 {
-	int m = 1; 
-	int n = 4;
-	GPUMatrix::Matrix<Real> a(m, n); 
+	int rows = 1; 
+	int cols = 4;
+	GPUMatrix::Matrix<Real> a(rows, cols); 
 
-	for(int i = 0; i < m; ++i) {
-		for(int j = 0; j < n; ++j) {
-			a(i, j) = static_cast<Real> (i * n + j);
-			BOOST_CHECK(a(i, j) == static_cast<Real> (i * n + j));
+	for(int i = 0; i < rows; ++i) {
+		for(int j = 0; j < cols; ++j) {
+			a(i, j) = static_cast<Real> (i * cols + j);
+			BOOST_CHECK(a(i, j) == static_cast<Real> (i * cols + j));
 		}
 	}
 
