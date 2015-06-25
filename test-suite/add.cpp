@@ -18,10 +18,6 @@ BOOST_AUTO_TEST_CASE (testsquarematrixcopyadd)
 
     c = a + b;
 
-    std::cout << a << std::endl;
-    std::cout << b << std::endl;
-    std::cout << c << std::endl;
-
 	for(int i = 0; i < col; ++i) {
 		for(int j = 0; j < row; ++j) {
             BOOST_CHECK_CLOSE(2.0 * a(i, j), c(i, j), TOL) ;
@@ -29,7 +25,7 @@ BOOST_AUTO_TEST_CASE (testsquarematrixcopyadd)
 	}
 
 }
-/*BOOST_AUTO_TEST_CASE (testrowmatrixcopyadd)
+BOOST_AUTO_TEST_CASE (testrowmatrixcopyadd)
 {
 	int row = 4; 
 	int col = 1;
@@ -69,5 +65,5 @@ BOOST_AUTO_TEST_CASE (testcolmatrixcopyadd)
 		}
 	}
 
-}*/
+}
 BOOST_AUTO_TEST_SUITE_END()

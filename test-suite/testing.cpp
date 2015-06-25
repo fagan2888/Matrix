@@ -11,10 +11,10 @@
 
 void foo(const GPUMatrix::Matrix<TYPE> &a) {
 
-    double x;
-
-    std::swap(x, a(0,0));
-    std::cout << x << std::endl;
+    double *x;
+    GPUMatrix::Matrix<TYPE> tmp(a);
+    
+    std::cout << &tmp(4, 4) << std::endl;
 }
 
 int main(int argc, char *argv[]) {
@@ -26,17 +26,31 @@ int main(int argc, char *argv[]) {
     int nsamples = 1;
     auto my_shared_ptr = boost::make_shared<double[]>(row * col, 1.0); 
     double *array = new double[row * col];
-    
-    GPUMatrix::Matrix<TYPE> a(16, 16);
-
-    test::inittestMatrix(a);
-    
    
+
+    GPUMatrix::Matrix<TYPE> a(4, 4);
+    test::inittestMatrix(a); 
+    GPUMatrix::Matrix<TYPE> b(a);
+ 
+
+
+    auto c = a * b;
     
-    foo(a);
-    
-    double *tmp;
-    tmp = &my_shared_ptr[0];
+ 
+    std::cout << a << std::endl;
+    std::cout << b << std::endl;
+    std::cout << c << std::endl;
+
+    GPUMatrix::Matrix<TYPE> d(4, 1);
+    test::inittestMatrix(d); 
+    //GPUMatrix::Matrix<TYPE> e(1, 4); 
+    //test::inittestMatrix(e); 
+
+    //auto f = d * e;
+
+    std::cout << d << std::endl;
+    //std::cout << e << std::endl;
+    //std::cout << c << std::endl;
 
     {
         boost::timer::auto_cpu_timer t;	

@@ -114,22 +114,31 @@ namespace GPUMatrix {
                 return Set(row_, col_);
             }
 
+            const Matrix operator * (const Matrix &b) const{	
+                return multiply(*this, b);
+            }
+            
+            const Matrix operator + (const Matrix &b) const{	
+                return add(*this, b);
+            }
+            
+            const Matrix operator - (const Matrix &b) const{
+                return subtract(*this, b);
+            }
+            
             const Matrix multiply(const Matrix &a, const Matrix &b) const{
 #ifdef DBG
                 std::cout << "Multiplying Matrix" << std::endl;
 #endif
                 if(a.cols() != b.rows())
                     throw std::invalid_argument(std::string("Matrix dimensions are not compatible for multiplication"));
-                Matrix c(a.rows(), b.cols());
-                
+                Matrix c(a.rows(), b.cols(), 0.0);
+                Matrix tmp_a(a);
+                Matrix tmp_b(b);
 
-                //cblas_dgemm(CblasColMajor, CblasTrans, CblasTrans, a.cols(), b.rows(), a.rows(), 1.0, (double*)&a(0,0), b.cols(),  (double*)(&b(0,0)), b.rows(), a.rows(), &c(0,0), a.rows()); 
+                cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, a.rows(), b.cols(), a.cols(), 1.0, &tmp_a(0,0), a.cols(), &tmp_b(0,0), b.cols(), 0.0, &c(0,0), c.cols()); 
                 
                 return c;
-            }
-
-            const Matrix operator * (const Matrix &b) const{	
-                return multiply(*this, b);
             }
 
             const Matrix add(const Matrix &a, const Matrix &b) const{
@@ -149,10 +158,6 @@ namespace GPUMatrix {
                 return c;
             }
 
-            const Matrix operator + (const Matrix &b) const{	
-                return add(*this, b);
-            }
-
             const Matrix subtract(const Matrix &a, const Matrix &b) const{
 #ifdef DBG
                 std::cout << "Subtracting Matrix" << std::endl;
@@ -168,10 +173,6 @@ namespace GPUMatrix {
                     }
                 }
                 return c;
-            }
-
-            const Matrix operator - (const Matrix &b) const{
-                return subtract(*this, b);
             }
 
             void print() const{
