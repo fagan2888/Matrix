@@ -17,9 +17,9 @@ class test{
 	}
 
 	template<class T> static void inittestmatrix(T **&a, int row, int col) {
-		for(int i = 0; i < col; ++i) {
-			for(int j = 0; j < row; ++j) {
-				a[i][j] = static_cast<T>(i * row + j);
+		for(int i = 0; i < row; ++i) {
+			for(int j = 0; j < col; ++j) {
+				a[i][j] = static_cast<T>(i * col + j);
 			}
 		}
 	}
@@ -39,15 +39,15 @@ class test{
 		delete[] a;
 	}
 	template<class T> static void inittestMatrix(GPUMatrix::Matrix<T> &a){
-        for(int i = 0; i < a.cols(); ++i){
-			for(int j = 0; j < a.rows(); ++j)
-				a(i, j) = static_cast<T>(i * a.rows() + j); 
+        for(int i = 0; i < a.rows(); ++i){
+			for(int j = 0; j < a.cols(); ++j)
+				a(i, j) = static_cast<T>(i * a.cols() + j); 
 		}
 	}
 
 	template<class T> static void printmatrix(T **&a, int row, int col) {
-		for(int i = 0; i < col; ++i) {
-			for(int j = 0; j < row; ++j)
+		for(int i = 0; i < row; ++i) {
+			for(int j = 0; j < col; ++j)
 				std::cout << a[i][j] << " ";
 			std::cout << "\n";
 		}
@@ -55,8 +55,8 @@ class test{
 	
 	template<class T> static void add2d(T **&a, T **&b, T **&c, int row, int col) {
 		
-		for(int i = 0; i < col; ++i) {
-			for(int j = 0; j < row; ++j)
+		for(int i = 0; i < row; ++i) {
+			for(int j = 0; j < col; ++j)
 				c[i][j] = a[i][j] + b[i][j];
 		}
 
@@ -64,8 +64,8 @@ class test{
 	
 	template<class T> static void subtract2d(T **&a, T **&b, T **&c, int row, int col) {
 		
-		for(int i = 0; i < col; ++i) {
-			for(int j = 0; j < row; ++j)
+		for(int i = 0; i < row; ++i) {
+			for(int j = 0; j < col; ++j)
 				c[i][j] = a[i][j] - b[i][j];
 		}
 
@@ -75,8 +75,8 @@ class test{
 			return false;
 
 		bool success = true;
-		for(int i = 0; i < col; ++i) {
-			for(int j = 0; j < row; ++j) {
+		for(int i = 0; i < row; ++i) {
+			for(int j = 0; j < col; ++j) {
 				if(std::abs(b[i][j] - a(i, j)) > tol)
 					success = false;
 			}

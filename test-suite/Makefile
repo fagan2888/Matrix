@@ -1,22 +1,24 @@
 include ../make.inc
 
 LIBDIR:=$(LIBDIR) -L$(BOOSTLIB)/lib
-LDFLAGS:=$(LDFLAGS) -lboost_unit_test_framework -lboost_system -lboost_timer
-ADD:=add
-GETSET:=getset
-MULT:=multiply
-SUB:=subtract
-TEST:=test
+LDFLAGS:=$(LDFLAGS) -lboost_unit_test_framework -lboost_system -lboost_timer -lboost_chrono
+BIN=../bin
+OBJ=../obj
+ADD:=$(BIN)/add
+GETSET:=$(BIN)/getset
+MULT:=$(BIN)/multiply
+SUB:=$(BIN)/subtract
+TEST:=$(BIN)/test
 SRC_ADD=add.cpp
 SRC_GETSET:=getsetelements.cpp
 SRC_MULT:=multiply.cpp
 SRC_SUB=subtract.cpp
 SRC_TEST=testing.cpp
-OBJS_ADD:=$(patsubst %.cpp,%.cpp.o,$(SRC_ADD))
-OBJS_GETSET:=$(patsubst %.cpp,%.cpp.o,$(SRC_GETSET))
-OBJS_MULT:=$(patsubst %.cpp,%.cpp.o,$(SRC_MULT))
-OBJS_SUB:=$(patsubst %.cpp,%.cpp.o,$(SRC_SUB))
-OBJS_TEST:=$(patsubst %.cpp,%.cpp.o,$(SRC_TEST))
+OBJS_ADD:=$(OBJ)/$(patsubst %.cpp,%.cpp.o,$(SRC_ADD))
+OBJS_GETSET:=$(OBJ)/$(patsubst %.cpp,%.cpp.o,$(SRC_GETSET))
+OBJS_MULT:=$(OBJ)/$(patsubst %.cpp,%.cpp.o,$(SRC_MULT))
+OBJS_SUB:=$(OBJ)/$(patsubst %.cpp,%.cpp.o,$(SRC_SUB))
+OBJS_TEST:=$(OBJ)/$(patsubst %.cpp,%.cpp.o,$(SRC_TEST))
 
 OBJS:=$(OBJS_ADD) $(OBJS_GETSET) $(OBJS_MULT) $(OBJS_SUB) $(OBJS_TEST)
 
@@ -38,9 +40,6 @@ $(SUB): $(OBJS_SUB)
 
 $(TEST): $(OBJS_TEST)
 	$(CXX) -o $@ $< $(LIBDIR) $(LDFLAGS)
-
-
-
 
 $(OBJS_ADD): $(SRC_ADD)
 	$(CXX) $(CXXFLAGS) $(OPTS) $(INCLUDE) -o $@ -c $<

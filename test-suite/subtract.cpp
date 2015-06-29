@@ -21,7 +21,7 @@ BOOST_AUTO_TEST_CASE (testsquarematrixcopysubtract)
 
 	for(int i = 0; i < m; ++i) {
 		for(int j = 0; j < n; ++j) {
-			BOOST_CHECK_CLOSE(0.0 , c(i, j), TOL) ;
+			BOOST_CHECK_CLOSE_FRACTION(0.0 , c(i, j), TOL) ;
 		}
 	}
 
@@ -41,7 +41,7 @@ BOOST_AUTO_TEST_CASE (testrowmatrixcopysubtract)
 
 	for(int i = 0; i < m; ++i) {
 		for(int j = 0; j < n; ++j) {
-			BOOST_CHECK_CLOSE(0.0, c(i, j), TOL) ;
+			BOOST_CHECK_CLOSE_FRACTION(0.0, c(i, j), TOL) ;
 		}
 	}
 }
@@ -63,7 +63,7 @@ BOOST_AUTO_TEST_CASE (testcolmatrixcopysubtract)
 
 	for(int i = 0; i < m; ++i) {
 		for(int j = 0; j < n; ++j) {
-			BOOST_CHECK_CLOSE(0.0 , c(i, j), TOL) ;
+			BOOST_CHECK_CLOSE_FRACTION(0.0 , c(i, j), TOL) ;
 		}
 	}
 

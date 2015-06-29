@@ -13,7 +13,7 @@ BOOST_AUTO_TEST_CASE (testsquarematrix)
 	for(int i = 0; i < rows; ++i) {
 		for(int j = 0; j < cols; ++j) {
 			a(i , j) = static_cast<Real> (i * rows + j);
-            BOOST_CHECK(a(i, j) == static_cast<Real> (i * cols + j));
+            BOOST_CHECK_CLOSE_FRACTION(a(i, j), static_cast<Real> (i * cols + j), TOL);
 		}
 	}
 
@@ -29,7 +29,7 @@ BOOST_AUTO_TEST_CASE (testrowmatrix)
 	for(int i = 0; i < rows; ++i) {
 		for(int j = 0; j < cols; ++j) {
 			a(i , j) = static_cast<Real> (i * cols + j);
-			BOOST_CHECK(a(i, j) == static_cast<Real> (i * cols + j));
+			BOOST_CHECK_CLOSE_FRACTION(a(i, j), static_cast<Real> (i * cols + j), TOL);
 		}
 	}
 
@@ -46,7 +46,7 @@ BOOST_AUTO_TEST_CASE (testcolmatrix)
 	for(int i = 0; i < rows; ++i) {
 		for(int j = 0; j < cols; ++j) {
 			a(i, j) = static_cast<Real> (i * cols + j);
-			BOOST_CHECK(a(i, j) == static_cast<Real> (i * cols + j));
+			BOOST_CHECK_CLOSE_FRACTION(a(i, j), static_cast<Real> (i * cols + j), TOL);
 		}
 	}
 

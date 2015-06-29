@@ -21,7 +21,7 @@ BOOST_AUTO_TEST_CASE (testsquarematrixmultiply)
 
 	for(int i = 0; i < row; ++i) {
 		for(int j = 0; j < col; ++j) {
-            BOOST_CHECK_CLOSE(answer[i * row + j] , c(i, j), TOL) ;
+			BOOST_CHECK_CLOSE_FRACTION(c(i, j), answer[i * col + j], TOL);
 		}
 	}
 
@@ -41,7 +41,7 @@ BOOST_AUTO_TEST_CASE (TestRowMatrixMultiply)
 
 	for(int i = 0; i < col; ++i) {
 		for(int j = 0; j < row; ++j) {
-            BOOST_CHECK_CLOSE(static_cast<Real>(i * row + j) * static_cast<Real>(i * row + j) , c(i, j), TOL) ;
+		
 		}
 	}
 }
@@ -62,7 +62,6 @@ BOOST_AUTO_TEST_CASE (TestColMatrixMultiply)
 
 	for(int i = 0; i < col; ++i) {
 		for(int j = 0; j < row; ++j) {
-            BOOST_CHECK_CLOSE(static_cast<Real>(i * row + j) * static_cast<Real>(i * row + j) , c(i, j), TOL) ;
 		}
 	}
 
