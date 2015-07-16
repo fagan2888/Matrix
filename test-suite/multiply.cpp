@@ -26,7 +26,7 @@ BOOST_AUTO_TEST_CASE (testsquarematrixmultiply)
 	}
 
 }
-BOOST_AUTO_TEST_CASE (TestRowMatrixMultiply)
+/*BOOST_AUTO_TEST_CASE (TestRowMatrixMultiply)
 {
 	int row = 4; 
 	int col = 1;
@@ -39,8 +39,8 @@ BOOST_AUTO_TEST_CASE (TestRowMatrixMultiply)
 
     c = a * b;
 
-	for(int i = 0; i < col; ++i) {
-		for(int j = 0; j < row; ++j) {
+	for(int i = 0; i < row; ++i) {
+		for(int j = 0; j < col; ++j) {
 		
 		}
 	}
@@ -60,10 +60,11 @@ BOOST_AUTO_TEST_CASE (TestColMatrixMultiply)
 
     c = a * b;
 
-	for(int i = 0; i < col; ++i) {
-		for(int j = 0; j < row; ++j) {
+	for(int i = 0; i < row; ++i) {
+		for(int j = 0; j < col; ++j) {
 		}
 	}
 
-}
+} */
+
 BOOST_AUTO_TEST_SUITE_END()

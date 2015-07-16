@@ -125,7 +125,10 @@ namespace GPUMatrix {
             const Matrix operator - (const Matrix &b) const{
                 return subtract(*this, b);
             }
-            
+           
+            const T *get_pointer() const{
+                return matrix.get();
+            }
             const Matrix multiply(const Matrix &a, const Matrix &b) const{
 #ifdef DBG
                 std::cout << "Multiplying Matrix" << std::endl;
@@ -133,10 +136,8 @@ namespace GPUMatrix {
                 if(a.cols() != b.rows())
                     throw std::invalid_argument(std::string("Matrix dimensions are not compatible for multiplication"));
                 Matrix c(a.rows(), b.cols(), 0.0);
-                Matrix tmp_a(a);
-                Matrix tmp_b(b);
 
-                cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, a.rows(), b.cols(), a.cols(), 1.0, &tmp_a(0,0), a.cols(), &tmp_b(0,0), b.cols(), 0.0, &c(0,0), c.cols()); 
+                cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, a.rows(), b.cols(), a.cols(), 1.0, const_cast<T*>(a.get_pointer()), a.cols(), const_cast<T*>(b.get_pointer()), b.cols(), 0.0, const_cast<T*>(c.get_pointer()), c.cols()); 
                 
                 return c;
             }
@@ -233,8 +234,6 @@ namespace GPUMatrix {
                     throw std::invalid_argument(std::string("Element out of bounds"));
                 return *(matrix.get() + row_ * ncols + col_);
             };
-
-            
 
 
 	};
