@@ -1,5 +1,15 @@
-#include<iostream>
 #include<Matrix.hpp>
+
+/*template<typename T> std::ostream& operator<<(std::ostream& os, const GPUMatrix::Matrix<T> &b) {
+		    for(int i = 0; i < b.cols(); ++i) {
+			    for(int j = 0; j < b.rows(); ++j) {
+				    os << b(i, j) << " ";
+		    }
+		    os << "\n";
+		}
+		os << "\n";
+        return os;
+};*/
 
 /*template<class T> void Matrix<T>::allocate(){
 

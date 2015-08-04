@@ -10,5 +10,5 @@ OPTS:=-O2
 
 BLASLIB:=/home/nashp/tools
 BOOSTLIB:=/home/nashp/Documents/Boost/1.56
-LIBDIR:=-L${BLASLIB}/lib -L../lib
+LIBDIR:=-L${BLASLIB}/lib -L/home/nashp/Matrix/lib
 INCLUDE:=-I${BLASLIB}/include -I../include -I$(BOOSTLIB)

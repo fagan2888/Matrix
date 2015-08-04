@@ -2,7 +2,7 @@ include ../make.inc
 
 .SUFFIXES: .c .cu .cpp .cpp.u .c.o .cu.o
 
-TARGET:=../lib/libMatrix.so
+TARGET:=../lib/libGPUMatrix.so
 SRC_CXX:=Matrix.cpp
 INCLUDE+=-I../include
 OBJS_CXX:=$(patsubst %.cpp,%.cpp.o,$(SRC_CXX))

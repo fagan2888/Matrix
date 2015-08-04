@@ -4,16 +4,67 @@
 #include<string>
 #include<exception>
 #include<stdexcept>
+#include<iostream>
 #include<cblas.h>
 #include<boost/smart_ptr/allocate_shared_array.hpp>
 #include<boost/smart_ptr/make_shared_array.hpp>
 
 namespace GPUMatrix {
 
-	template<class T>class Matrix{
+    template<typename T>class Matrix{
+
+        private:
+            boost::shared_ptr<T[]> matrix;
+            int nrows;
+            int ncols;
+            const std::string type = "Matrix";		
+            void allocate() {
+#ifdef DBG
+                std::cout << "Allocating array" << std::endl;
+#endif
+                try {
+                    matrix = boost::make_shared<T[]>(nrows * ncols);
+                } catch (std::exception &e) {
+                    throw;
+                }
+            };
+
+            void allocate(T default_val) {
+#ifdef DBG
+                std::cout << "Allocating array" << std::endl;
+#endif
+                try {
+                    matrix = boost::make_shared<T[]>(nrows * ncols, default_val);
+                } catch (std::exception &e) {
+                    throw;
+                }
+            };   
+
+            void deallocate() {
+#ifdef DBG
+                std::cout << "Deallocating array" << std::endl;
+#endif
+            };
+
+            const T Get(const int row_, const int col_) const{
+                if(row_ < 0 || col_ < 0)
+                    throw std::invalid_argument(std::string("Elements cannot be less than 0"));	
+                if (row_ >= nrows || col_ >= ncols)
+                    throw std::invalid_argument(std::string("Element out of bounds"));
+                return matrix[row_ * ncols + col_];
+            };
+
+            T &Set(const int row_, const int col_) {	
+                if(row_ < 0 || col_ < 0)
+                    throw std::invalid_argument(std::string("Elements cannot be less than 0"));	
+                if (row_ >= nrows || col_ >= ncols)
+                    throw std::invalid_argument(std::string("Element out of bounds"));
+                return *(matrix.get() + row_ * ncols + col_);
+            };
+
 
         public:
-            explicit Matrix() : nrows(1), ncols(1){
+            explicit Matrix() : nrows(1), ncols(1), matrix(boost::make_shared<T[]>(1 * 1, 0.0)) {
 #ifdef DBG
                 std::cout << "Constructing Matrix" << std::endl;
 #endif	
@@ -24,12 +75,10 @@ namespace GPUMatrix {
                 }
             };
 
-            explicit Matrix(const int nrows_, const int ncols_, const T default_val = 1.0) : nrows(nrows_), ncols(ncols_){
+            explicit Matrix(const int nrows_, const int ncols_, const T default_val = 0.0) : nrows(nrows_), ncols(ncols_), matrix(boost::make_shared<T[]>(nrows_ * ncols_, default_val)){
 #ifdef DBG
                 std::cout << "Constructing Matrix" << std::endl;
 #endif	
-                nrows = nrows_;
-                ncols = ncols_;
                 try {
                     allocate(default_val);
                 } catch (std::exception &e) {
@@ -117,15 +166,15 @@ namespace GPUMatrix {
             const Matrix operator * (const Matrix &b) const{	
                 return multiply(*this, b);
             }
-            
+
             const Matrix operator + (const Matrix &b) const{	
                 return add(*this, b);
             }
-            
+
             const Matrix operator - (const Matrix &b) const{
                 return subtract(*this, b);
             }
-           
+
             const T *get_pointer() const{
                 return matrix.get();
             }
@@ -138,7 +187,7 @@ namespace GPUMatrix {
                 Matrix c(a.rows(), b.cols(), 0.0);
 
                 cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, a.rows(), b.cols(), a.cols(), 1.0, const_cast<T*>(a.get_pointer()), a.cols(), const_cast<T*>(b.get_pointer()), b.cols(), 0.0, const_cast<T*>(c.get_pointer()), c.cols()); 
-                
+
                 return c;
             }
 
@@ -185,69 +234,19 @@ namespace GPUMatrix {
                 std::cout << "\n";
             }
 
-            
-        private:
-            boost::shared_ptr<T[]> matrix;
-            int nrows;
-            int ncols;
-            const std::string type = "Matrix";		
-            void allocate() {
-#ifdef DBG
-                std::cout << "Allocating array" << std::endl;
-#endif
-                try {
-                    matrix = boost::make_shared<T[]>(nrows * ncols);
-                } catch (std::exception &e) {
-                    throw;
+
+            friend std::ostream& operator << (std::ostream& os, const Matrix<T> &b) {
+                for(int i = 0; i < b.cols(); ++i) {
+                    for(int j = 0; j < b.rows(); ++j) {
+                        os << b(i, j) << " ";
+                    }
+                    os << "\n";
                 }
-            };
-     
-            void allocate(T default_val) {
-#ifdef DBG
-                std::cout << "Allocating array" << std::endl;
-#endif
-                try {
-                    matrix = boost::make_shared<T[]>(nrows * ncols, default_val);
-                } catch (std::exception &e) {
-                    throw;
-                }
-            };   
-            
-            void deallocate() {
-#ifdef DBG
-                std::cout << "Deallocating array" << std::endl;
-#endif
-            };
-            
-            const T Get(const int row_, const int col_) const{
-                if(row_ < 0 || col_ < 0)
-                    throw std::invalid_argument(std::string("Elements cannot be less than 0"));	
-                if (row_ >= nrows || col_ >= ncols)
-                    throw std::invalid_argument(std::string("Element out of bounds"));
-                return matrix[row_ * ncols + col_];
+                os << "\n";
+                return os;
             };
 
-            T &Set(const int row_, const int col_) {	
-                if(row_ < 0 || col_ < 0)
-                    throw std::invalid_argument(std::string("Elements cannot be less than 0"));	
-                if (row_ >= nrows || col_ >= ncols)
-                    throw std::invalid_argument(std::string("Element out of bounds"));
-                return *(matrix.get() + row_ * ncols + col_);
-            };
-
-
-	};
-
-	template<class T>std::ostream& operator<<(std::ostream& os, const Matrix<T> &b) {
-		    for(int i = 0; i < b.cols(); ++i) {
-			    for(int j = 0; j < b.rows(); ++j) {
-				    os << b(i, j) << " ";
-		    }
-		    os << "\n";
-		}
-		os << "\n";
-        return os;
     };
-
+        	  
 }
 #endif

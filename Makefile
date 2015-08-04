@@ -2,6 +2,7 @@
 all: test
 
 test:
+	cd src && $(MAKE)
 	cd test-suite && $(MAKE)
 
 libMatrix: 
