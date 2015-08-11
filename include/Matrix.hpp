@@ -68,22 +68,24 @@ namespace GPUMatrix {
 #ifdef DBG
                 std::cout << "Constructing Matrix" << std::endl;
 #endif	
-                try{
+                /*
+                 try{
                     allocate(); 
                 } catch (std::exception &e) {
                     throw;
                 }
+                */
             };
 
             explicit Matrix(const int nrows_, const int ncols_, const T default_val = 0.0) : nrows(nrows_), ncols(ncols_), matrix(boost::make_shared<T[]>(nrows_ * ncols_, default_val)){
 #ifdef DBG
                 std::cout << "Constructing Matrix" << std::endl;
 #endif	
-                try {
+                /*try {
                     allocate(default_val);
                 } catch (std::exception &e) {
                     throw;
-                } 
+                } */
             };
 
             Matrix(const Matrix &b) {
@@ -122,22 +124,22 @@ namespace GPUMatrix {
                 return ncols;
             };
 
+            std::pair<int, int> dims() {
+                return std::pair<int, int> (nrows, ncols);
+            }
             const Matrix& operator = (const Matrix &b) {
 #ifdef DBG
                 std::cout << "= Operator" << std::endl;
 #endif
-                try {
+                /*try {
                     this->deallocate();
                 } catch (std::exception &e) {
                     throw;
-                } 
+                }*/
                 this->nrows = b.rows();
                 this->ncols = b.cols();
-                try {
-                    this->allocate();
-                } catch (std::exception &e) {
-                    throw;
-                } 	
+                this->matrix = boost::make_shared<T[]>(nrows * ncols);
+
                 for(int i = 0; i < this->rows(); ++i) {
                     for(int j = 0; j < this->cols(); ++j) {
                         this->Set(i, j) = b(i, j);
@@ -178,16 +180,20 @@ namespace GPUMatrix {
             const T *get_pointer() const{
                 return matrix.get();
             }
-            const Matrix multiply(const Matrix &a, const Matrix &b) const{
+
+            
+            const Matrix multiply(const Matrix &a, const Matrix &b) const {
 #ifdef DBG
                 std::cout << "Multiplying Matrix" << std::endl;
 #endif
                 if(a.cols() != b.rows())
                     throw std::invalid_argument(std::string("Matrix dimensions are not compatible for multiplication"));
+                
                 Matrix c(a.rows(), b.cols(), 0.0);
 
                 cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, a.rows(), b.cols(), a.cols(), 1.0, const_cast<T*>(a.get_pointer()), a.cols(), const_cast<T*>(b.get_pointer()), b.cols(), 0.0, const_cast<T*>(c.get_pointer()), c.cols()); 
-
+                
+                
                 return c;
             }
 
