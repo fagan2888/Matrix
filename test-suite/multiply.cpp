@@ -19,11 +19,11 @@ BOOST_AUTO_TEST_CASE (testsquarematrixmultiply)
 
     c = a * b;
 
-#ifdef DBG
+/*#ifdef DBG
     std::cout << a << std::endl;
     std::cout << b << std::endl;
     std::cout << c << std::endl;
-#endif
+#endif*/
 
 	for(int i = 0; i < c.rows(); ++i) {
 		for(int j = 0; j < c.cols() ; ++j) {
@@ -48,11 +48,11 @@ BOOST_AUTO_TEST_CASE (TestRowMatrixMultiply)
 
     c = a * b;
 
-#ifdef DBG
+/*#ifdef DBG
     std::cout << a << std::endl;
     std::cout << b << std::endl;
     std::cout << c << std::endl;
-#endif 
+#endif*/
 
     for(int i = 0; i < c.rows(); ++i) {
 		for(int j = 0; j < c.cols(); ++j) {	
@@ -76,11 +76,11 @@ BOOST_AUTO_TEST_CASE (TestColMatrixMultiply)
     GPUMatrix::Matrix<Real> c(a * b);
 
 
-#ifdef DBG
+/*#ifdef DBG
     std::cout << a << std::endl;
     std::cout << b << std::endl;
     std::cout << c << std::endl;
-#endif 
+#endif*/
 
 	for(int i = 0; i < c.rows(); ++i) {
 		for(int j = 0; j < c.cols(); ++j) {	

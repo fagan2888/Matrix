@@ -16,5 +16,6 @@ clean:
 	cd src && $(MAKE) cleanall
 	cd test-suite && $(MAKE) cleanall
 
-cleanlib:
+cleanall:
 	cd src && $(MAKE) cleanall
+	cd test-suite && $(MAKE) cleanall

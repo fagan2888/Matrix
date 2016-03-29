@@ -32,21 +32,15 @@ int main(int argc, char *argv[]) {
     int col = 256;
     int nsamples = 1;
     auto my_shared_ptr = boost::make_shared<double[]>(row * col, 1.0); 
+    GPUMatrix::Matrix<double> * mat = new GPUMatrix::Matrix<double>(row, col);
+
+    
+    std::string s = mat->name();
+    
+    std::cout << s << std::endl;    
     double *array = new double[row * col];
 
     delete[] array;
-
-
-    for(int i = 0; i < 1000; ++i) {
-        
-        int x = ;
-        int y = 3;
-    
-        x = &y;
-
-        std::cout << &x << ' ' << &y << std::endl;
-    }
-
-
+    delete mat;
     return 0;
 }
