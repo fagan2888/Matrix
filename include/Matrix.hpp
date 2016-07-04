@@ -1,56 +1,55 @@
-#ifndef __INSTRUMENT__
-#define __INSTRUMENT__
+#ifndef __INSTypeRUMENType__
+#define __INSTypeRUMENType__
 
 #include<string>
 #include<exception>
 #include<stdexcept>
 #include<iostream>
 #include<cblas.h>
-#include<boost/smart_ptr/allocate_shared_array.hpp>
-#include<boost/smart_ptr/make_shared_array.hpp>
+#include<memory>
 
 namespace GPUMatrix 
 {
-    template<typename T>class Matrix
+    template<typename Type, typename IndexType = int>class Matrix
     {
         public:
             Matrix();
-            Matrix(const int nrows, const int ncols, const T default_val =0.0);
+            Matrix(const IndexType nrows, const IndexType ncols, const Type default_val =0.0);
             Matrix(const Matrix& b);
             ~Matrix();
             const std::string name() const;
-            const int rows() const;
-            const int cols() const;
-            const std::pair<int, int> dims() const;
+            const IndexType rows() const;
+            const IndexType cols() const;
+            const std::pair<IndexType, IndexType> dims() const;
             const Matrix& operator = (const Matrix& b);
-            const T operator () (const int row, const int col) const;
+            const Type operator () (const IndexType row, const IndexType col) const;
             const Matrix operator * (const Matrix& b) const;
             const Matrix operator + (const Matrix& b) const;
             const Matrix operator - (const Matrix& b) const;
-            T& operator () (const int row, const int col);
+            Type& operator () (const IndexType row, const IndexType col);
             void print() const;      
 
         private:
-            boost::shared_ptr<T[]> m_matrix;
-            int m_nrows;
-            int m_ncols;
+            std::unique_ptr<Type[]> m_matrix;
+            IndexType m_nrows;
+            IndexType m_ncols;
             const std::string m_type = "Matrix";		
             void allocate(); 
-            void allocate(T default_val);   
+            void allocate(Type default_val);   
             void deallocate(); 
-            const T Get(const int row, const int col) const; 
-            T& Set(const int row, const int col);
-            const T* get_pointer() const;
+            const Type Get(const IndexType row, const IndexType col) const; 
+            Type& Set(const IndexType row, const IndexType col);
+            const Type* get_pointer() const;
             const Matrix multiply(const Matrix& a, const Matrix& b) const;
             const Matrix add(const Matrix& a, const Matrix& b) const;  
             const Matrix subtract(const Matrix& a, const Matrix& b) const;
 
-            //friend std::ostream & operator <<(std::ostream &os, const Matrix<T> &b);
+            //friend std::ostream & operator <<(std::ostream &os, const Matrix<Type> &b);
     };
 
     template<> const GPUMatrix::Matrix<double> GPUMatrix::Matrix<double>::multiply(const GPUMatrix::Matrix<double> &a, const GPUMatrix::Matrix<double> &b) const 
     {
-#ifdef DBG
+#ifdef DEBUG
         std::cout << "Multiplying Matrix" << std::endl;
 #endif
         if(a.cols() != b.rows())

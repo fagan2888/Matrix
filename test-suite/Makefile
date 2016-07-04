@@ -1,7 +1,7 @@
 include ../make.inc
 
 LIBDIR:=$(LIBDIR) -L$(BOOSTLIB)/lib
-LDFLAGS:=$(LDFLAGS) -lboost_unit_test_framework -lboost_system -lboost_timer -lboost_chrono
+LDFLAGS:=$(LDFLAGS) -lboost_unit_test_framework -lboost_timer -lboost_chrono -lstdc++
 BIN=../bin
 OBJ=../obj
 ADD:=$(BIN)/add

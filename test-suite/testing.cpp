@@ -1,9 +1,7 @@
 #include<iostream>
 #include<vector>
 #include<stdexcept>
-#include<boost/smart_ptr/make_shared_array.hpp>
-#include<boost/smart_ptr/allocate_shared_array.hpp>
-#include <boost/timer/timer.hpp>
+//#include <boost/timer/timer.hpp>
 #include<type_traits>
 #include<algorithm>
 #include<utility>
@@ -20,27 +18,25 @@ void foo(const GPUMatrix::Matrix<TYPE> &a) {
 }
 
 
-TYPE * return_address(int row, int col) {
+/*void return_address(int row, int col) {
 
-    auto my_shared_ptr = boost::make_shared<double[]>(row * col, 1.0); 
+    auto my_shared_ptr = std::make_shared<double[]>(row * col); 
 
-    return my_shared_ptr.get();
-}
+    //return my_shared_ptr.get();
+}*/
+
 int main(int argc, char *argv[]) {
 
     int row = 256;
     int col = 256;
     int nsamples = 1;
-    auto my_shared_ptr = boost::make_shared<double[]>(row * col, 1.0); 
+    //auto my_shared_ptr = std::make_shared<double[]>(row * col); 
     GPUMatrix::Matrix<double> * mat = new GPUMatrix::Matrix<double>(row, col);
 
-    
     std::string s = mat->name();
     
     std::cout << s << std::endl;    
-    double *array = new double[row * col];
 
-    delete[] array;
     delete mat;
     return 0;
 }

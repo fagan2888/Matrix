@@ -1,0 +1,138 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+ADD	test-suite/Makefile	/^ADD:=$(BIN)\/add$/;"	m
+ALL	test-suite/Makefile	/^ALL=$(ADD) $(GETSET) $(MULT) $(SUB) $(TEST) $/;"	m
+BIN	test-suite/Makefile	/^BIN=..\/bin$/;"	m
+BOOST_AUTO_TEST_CASE	test-suite/add.cpp	/^BOOST_AUTO_TEST_CASE (testcolmatrixcopyadd)$/;"	f	signature:(testcolmatrixcopyadd)
+BOOST_AUTO_TEST_CASE	test-suite/add.cpp	/^BOOST_AUTO_TEST_CASE (testrowmatrixcopyadd)$/;"	f	signature:(testrowmatrixcopyadd)
+BOOST_AUTO_TEST_CASE	test-suite/add.cpp	/^BOOST_AUTO_TEST_CASE (testsquarematrixcopyadd)$/;"	f	signature:(testsquarematrixcopyadd)
+BOOST_AUTO_TEST_CASE	test-suite/getsetelements.cpp	/^BOOST_AUTO_TEST_CASE (testcolmatrix)$/;"	f	signature:(testcolmatrix)
+BOOST_AUTO_TEST_CASE	test-suite/getsetelements.cpp	/^BOOST_AUTO_TEST_CASE (testrowmatrix)$/;"	f	signature:(testrowmatrix)
+BOOST_AUTO_TEST_CASE	test-suite/getsetelements.cpp	/^BOOST_AUTO_TEST_CASE (testsquarematrix)$/;"	f	signature:(testsquarematrix)
+BOOST_AUTO_TEST_CASE	test-suite/multiply.cpp	/^BOOST_AUTO_TEST_CASE (TestColMatrixMultiply)$/;"	f	signature:(TestColMatrixMultiply)
+BOOST_AUTO_TEST_CASE	test-suite/multiply.cpp	/^BOOST_AUTO_TEST_CASE (TestRowMatrixMultiply)$/;"	f	signature:(TestRowMatrixMultiply)
+BOOST_AUTO_TEST_CASE	test-suite/multiply.cpp	/^BOOST_AUTO_TEST_CASE (TestThrowColMatrixMultiply) {$/;"	f	signature:(TestThrowColMatrixMultiply)
+BOOST_AUTO_TEST_CASE	test-suite/multiply.cpp	/^BOOST_AUTO_TEST_CASE (TestThrowRowMatrixMultiply) {$/;"	f	signature:(TestThrowRowMatrixMultiply)
+BOOST_AUTO_TEST_CASE	test-suite/multiply.cpp	/^BOOST_AUTO_TEST_CASE (testsquarematrixmultiply)$/;"	f	signature:(testsquarematrixmultiply)
+BOOST_AUTO_TEST_CASE	test-suite/subtract.cpp	/^BOOST_AUTO_TEST_CASE (testcolmatrixcopysubtract)$/;"	f	signature:(testcolmatrixcopysubtract)
+BOOST_AUTO_TEST_CASE	test-suite/subtract.cpp	/^BOOST_AUTO_TEST_CASE (testrowmatrixcopysubtract)$/;"	f	signature:(testrowmatrixcopysubtract)
+BOOST_AUTO_TEST_CASE	test-suite/subtract.cpp	/^BOOST_AUTO_TEST_CASE (testsquarematrixcopysubtract)$/;"	f	signature:(testsquarematrixcopysubtract)
+BOOST_TEST_MODULE	test-suite/add.cpp	1;"	d	file:
+BOOST_TEST_MODULE	test-suite/getsetelements.cpp	1;"	d	file:
+BOOST_TEST_MODULE	test-suite/multiply.cpp	1;"	d	file:
+BOOST_TEST_MODULE	test-suite/subtract.cpp	1;"	d	file:
+FAIL	test-suite/test.hpp	4;"	d
+GETSET	test-suite/Makefile	/^GETSET:=$(BIN)\/getset$/;"	m
+GPUMatrix	include/Matrix.hpp	/^namespace GPUMatrix {$/;"	n
+GPUMatrix::Matrix	include/Matrix.hpp	/^    template<typename T>class Matrix{$/;"	c	namespace:GPUMatrix
+GPUMatrix::Matrix::Get	include/Matrix.hpp	/^            const T Get(const int row_, const int col_) const{$/;"	f	class:GPUMatrix::Matrix	access:private	signature:(const int row_, const int col_) const
+GPUMatrix::Matrix::Matrix	include/Matrix.hpp	/^            Matrix(const Matrix &b) {$/;"	f	class:GPUMatrix::Matrix	access:public	signature:(const Matrix &b)
+GPUMatrix::Matrix::Matrix	include/Matrix.hpp	/^            explicit Matrix() : nrows(1), ncols(1), matrix(boost::make_shared<T[]>(1 * 1, 0.0)) {$/;"	f	class:GPUMatrix::Matrix	access:public	signature:()
+GPUMatrix::Matrix::Matrix	include/Matrix.hpp	/^            explicit Matrix(const int nrows_, const int ncols_, const T default_val = 0.0) : nrows(nrows_), ncols(ncols_), matrix(boost::make_shared<T[]>(nrows_ * ncols_, default_val)){$/;"	f	class:GPUMatrix::Matrix	access:public	signature:(const int nrows_, const int ncols_, const T default_val = 0.0)
+GPUMatrix::Matrix::Set	include/Matrix.hpp	/^            T &Set(const int row_, const int col_) {	$/;"	f	class:GPUMatrix::Matrix	access:private	signature:(const int row_, const int col_)
+GPUMatrix::Matrix::add	include/Matrix.hpp	/^            const Matrix add(const Matrix &a, const Matrix &b) const{$/;"	f	class:GPUMatrix::Matrix	access:public	signature:(const Matrix &a, const Matrix &b) const
+GPUMatrix::Matrix::allocate	include/Matrix.hpp	/^            void allocate() {$/;"	f	class:GPUMatrix::Matrix	access:private	signature:()
+GPUMatrix::Matrix::allocate	include/Matrix.hpp	/^            void allocate(T default_val) {$/;"	f	class:GPUMatrix::Matrix	access:private	signature:(T default_val)
+GPUMatrix::Matrix::cols	include/Matrix.hpp	/^            const int cols() const{$/;"	f	class:GPUMatrix::Matrix	access:public	signature:() const
+GPUMatrix::Matrix::deallocate	include/Matrix.hpp	/^            void deallocate() {$/;"	f	class:GPUMatrix::Matrix	access:private	signature:()
+GPUMatrix::Matrix::dims	include/Matrix.hpp	/^            std::pair<int, int> dims() {$/;"	f	class:GPUMatrix::Matrix	access:public	signature:()
+GPUMatrix::Matrix::get_pointer	include/Matrix.hpp	/^            const T *get_pointer() const{$/;"	f	class:GPUMatrix::Matrix	access:public	signature:() const
+GPUMatrix::Matrix::matrix	include/Matrix.hpp	/^            boost::shared_ptr<T[]> matrix;$/;"	m	class:GPUMatrix::Matrix	access:private
+GPUMatrix::Matrix::multiply	include/Matrix.hpp	/^            const Matrix multiply(const Matrix &a, const Matrix &b) const {$/;"	f	class:GPUMatrix::Matrix	access:public	signature:(const Matrix &a, const Matrix &b) const
+GPUMatrix::Matrix::name	include/Matrix.hpp	/^            const std::string name() const {$/;"	f	class:GPUMatrix::Matrix	access:public	signature:() const
+GPUMatrix::Matrix::ncols	include/Matrix.hpp	/^            int ncols;$/;"	m	class:GPUMatrix::Matrix	access:private
+GPUMatrix::Matrix::nrows	include/Matrix.hpp	/^            int nrows;$/;"	m	class:GPUMatrix::Matrix	access:private
+GPUMatrix::Matrix::operator ()	include/Matrix.hpp	/^            T &operator () (const int row_, const int col_) {	$/;"	f	class:GPUMatrix::Matrix	access:public	signature:(const int row_, const int col_)
+GPUMatrix::Matrix::operator ()	include/Matrix.hpp	/^            const T operator () (const int row_, const int col_) const{	$/;"	f	class:GPUMatrix::Matrix	access:public	signature:(const int row_, const int col_) const
+GPUMatrix::Matrix::operator *	include/Matrix.hpp	/^            const Matrix operator * (const Matrix &b) const{	$/;"	f	class:GPUMatrix::Matrix	access:public	signature:(const Matrix &b) const
+GPUMatrix::Matrix::operator +	include/Matrix.hpp	/^            const Matrix operator + (const Matrix &b) const{	$/;"	f	class:GPUMatrix::Matrix	access:public	signature:(const Matrix &b) const
+GPUMatrix::Matrix::operator -	include/Matrix.hpp	/^            const Matrix operator - (const Matrix &b) const{$/;"	f	class:GPUMatrix::Matrix	access:public	signature:(const Matrix &b) const
+GPUMatrix::Matrix::operator <<	include/Matrix.hpp	/^            friend std::ostream& operator << (std::ostream& os, const Matrix<T> &b) {$/;"	f	class:GPUMatrix::Matrix	access:friend	signature:(std::ostream& os, const Matrix<T> &b)
+GPUMatrix::Matrix::operator =	include/Matrix.hpp	/^            const Matrix& operator = (const Matrix &b) {$/;"	f	class:GPUMatrix::Matrix	access:public	signature:(const Matrix &b)
+GPUMatrix::Matrix::print	include/Matrix.hpp	/^            void print() const{$/;"	f	class:GPUMatrix::Matrix	access:public	signature:() const
+GPUMatrix::Matrix::rows	include/Matrix.hpp	/^            const int rows() const{$/;"	f	class:GPUMatrix::Matrix	access:public	signature:() const
+GPUMatrix::Matrix::subtract	include/Matrix.hpp	/^            const Matrix subtract(const Matrix &a, const Matrix &b) const{$/;"	f	class:GPUMatrix::Matrix	access:public	signature:(const Matrix &a, const Matrix &b) const
+GPUMatrix::Matrix::type	include/Matrix.hpp	/^            const std::string type = "Matrix";		$/;"	m	class:GPUMatrix::Matrix	access:private
+GPUMatrix::Matrix::~Matrix	include/Matrix.hpp	/^            ~Matrix(){$/;"	f	class:GPUMatrix::Matrix	access:public	signature:()
+Get	include/Matrix.hpp	/^            const T Get(const int row_, const int col_) const{$/;"	f	class:GPUMatrix::Matrix	access:private	signature:(const int row_, const int col_) const
+LDFLAGS	test-suite/Makefile	/^LDFLAGS:=$(LDFLAGS) -lboost_unit_test_framework -lboost_system -lboost_timer -lboost_chrono$/;"	m
+LIBDIR	test-suite/Makefile	/^LIBDIR:=$(LIBDIR) -L$(BOOSTLIB)\/lib$/;"	m
+MULT	test-suite/Makefile	/^MULT:=$(BIN)\/multiply$/;"	m
+Matrix	include/Matrix.hpp	/^            Matrix(const Matrix &b) {$/;"	f	class:GPUMatrix::Matrix	access:public	signature:(const Matrix &b)
+Matrix	include/Matrix.hpp	/^            explicit Matrix() : nrows(1), ncols(1), matrix(boost::make_shared<T[]>(1 * 1, 0.0)) {$/;"	f	class:GPUMatrix::Matrix	access:public	signature:()
+Matrix	include/Matrix.hpp	/^            explicit Matrix(const int nrows_, const int ncols_, const T default_val = 0.0) : nrows(nrows_), ncols(ncols_), matrix(boost::make_shared<T[]>(nrows_ * ncols_, default_val)){$/;"	f	class:GPUMatrix::Matrix	access:public	signature:(const int nrows_, const int ncols_, const T default_val = 0.0)
+Matrix	include/Matrix.hpp	/^    template<typename T>class Matrix{$/;"	c	namespace:GPUMatrix
+OBJ	test-suite/Makefile	/^OBJ=..\/obj$/;"	m
+OBJS	src/Makefile	/^OBJS:=$(OBJS_CXX)$/;"	m
+OBJS	test-suite/Makefile	/^OBJS:=$(OBJS_ADD) $(OBJS_GETSET) $(OBJS_MULT) $(OBJS_SUB) $(OBJS_TEST)$/;"	m
+OBJS_ADD	test-suite/Makefile	/^OBJS_ADD:=$(OBJ)\/$(patsubst %.cpp,%.cpp.o,$(SRC_ADD))$/;"	m
+OBJS_CXX	src/Makefile	/^OBJS_CXX:=$(patsubst %.cpp,%.cpp.o,$(SRC_CXX))$/;"	m
+OBJS_GETSET	test-suite/Makefile	/^OBJS_GETSET:=$(OBJ)\/$(patsubst %.cpp,%.cpp.o,$(SRC_GETSET))$/;"	m
+OBJS_MULT	test-suite/Makefile	/^OBJS_MULT:=$(OBJ)\/$(patsubst %.cpp,%.cpp.o,$(SRC_MULT))$/;"	m
+OBJS_SUB	test-suite/Makefile	/^OBJS_SUB:=$(OBJ)\/$(patsubst %.cpp,%.cpp.o,$(SRC_SUB))$/;"	m
+OBJS_TEST	test-suite/Makefile	/^OBJS_TEST:=$(OBJ)\/$(patsubst %.cpp,%.cpp.o,$(SRC_TEST))$/;"	m
+Real	test-suite/test.hpp	9;"	d
+SRC_ADD	test-suite/Makefile	/^SRC_ADD=add.cpp$/;"	m
+SRC_CXX	src/Makefile	/^SRC_CXX:=Matrix.cpp$/;"	m
+SRC_GETSET	test-suite/Makefile	/^SRC_GETSET:=getsetelements.cpp$/;"	m
+SRC_MULT	test-suite/Makefile	/^SRC_MULT:=multiply.cpp$/;"	m
+SRC_SUB	test-suite/Makefile	/^SRC_SUB=subtract.cpp$/;"	m
+SRC_TEST	test-suite/Makefile	/^SRC_TEST=testing.cpp$/;"	m
+SUB	test-suite/Makefile	/^SUB:=$(BIN)\/subtract$/;"	m
+Set	include/Matrix.hpp	/^            T &Set(const int row_, const int col_) {	$/;"	f	class:GPUMatrix::Matrix	access:private	signature:(const int row_, const int col_)
+TARGET	src/Makefile	/^TARGET:=..\/lib\/libGPUMatrix.so$/;"	m
+TEST	test-suite/Makefile	/^TEST:=$(BIN)\/test$/;"	m
+TOL	test-suite/test.hpp	10;"	d
+TYPE	test-suite/testing.cpp	11;"	d	file:
+__INSTRUMENT__	include/Matrix.hpp	2;"	d
+__TEST_	test-suite/test.hpp	2;"	d
+add	include/Matrix.hpp	/^            const Matrix add(const Matrix &a, const Matrix &b) const{$/;"	f	class:GPUMatrix::Matrix	access:public	signature:(const Matrix &a, const Matrix &b) const
+add2d	test-suite/test.hpp	/^	template<typename T> static void add2d(T **&a, T **&b, T **&c, int row, int col) {$/;"	f	class:test	access:public	signature:(T **&a, T **&b, T **&c, int row, int col)
+allocate	include/Matrix.hpp	/^            void allocate() {$/;"	f	class:GPUMatrix::Matrix	access:private	signature:()
+allocate	include/Matrix.hpp	/^            void allocate(T default_val) {$/;"	f	class:GPUMatrix::Matrix	access:private	signature:(T default_val)
+cols	include/Matrix.hpp	/^            const int cols() const{$/;"	f	class:GPUMatrix::Matrix	access:public	signature:() const
+compare	test-suite/test.hpp	/^	template<typename T> static bool compare(GPUMatrix::Matrix<T> &a, T** &b, int row, int col, double tol){$/;"	f	class:test	access:public	signature:(GPUMatrix::Matrix<T> &a, T** &b, int row, int col, double tol)
+dealloc2d	test-suite/test.hpp	/^	template<typename T> static void dealloc2d(T **&a, int row, int col) {$/;"	f	class:test	access:public	signature:(T **&a, int row, int col)
+deallocate	include/Matrix.hpp	/^            void deallocate() {$/;"	f	class:GPUMatrix::Matrix	access:private	signature:()
+dims	include/Matrix.hpp	/^            std::pair<int, int> dims() {$/;"	f	class:GPUMatrix::Matrix	access:public	signature:()
+foo	test-suite/testing.cpp	/^void foo(const GPUMatrix::Matrix<TYPE> &a) {$/;"	f	signature:(const GPUMatrix::Matrix<TYPE> &a)
+get_pointer	include/Matrix.hpp	/^            const T *get_pointer() const{$/;"	f	class:GPUMatrix::Matrix	access:public	signature:() const
+inittestMatrix	test-suite/test.hpp	/^	template<typename T> static void inittestMatrix(GPUMatrix::Matrix<T> &a){$/;"	f	class:test	access:public	signature:(GPUMatrix::Matrix<T> &a)
+inittestmatrix	test-suite/test.hpp	/^	template<typename T> static void inittestmatrix(T **&a, int row, int col) {$/;"	f	class:test	access:public	signature:(T **&a, int row, int col)
+main	test-suite/testing.cpp	/^int main(int argc, char *argv[]) {$/;"	f	signature:(int argc, char *argv[])
+malloc2d	test-suite/test.hpp	/^	template<typename T> static void malloc2d(T **&a, int row, int col) {$/;"	f	class:test	access:public	signature:(T **&a, int row, int col)
+matrix	include/Matrix.hpp	/^            boost::shared_ptr<T[]> matrix;$/;"	m	class:GPUMatrix::Matrix	access:private
+multiply	include/Matrix.hpp	/^            const Matrix multiply(const Matrix &a, const Matrix &b) const {$/;"	f	class:GPUMatrix::Matrix	access:public	signature:(const Matrix &a, const Matrix &b) const
+name	include/Matrix.hpp	/^            const std::string name() const {$/;"	f	class:GPUMatrix::Matrix	access:public	signature:() const
+ncols	include/Matrix.hpp	/^            int ncols;$/;"	m	class:GPUMatrix::Matrix	access:private
+nrows	include/Matrix.hpp	/^            int nrows;$/;"	m	class:GPUMatrix::Matrix	access:private
+operator ()	include/Matrix.hpp	/^            T &operator () (const int row_, const int col_) {	$/;"	f	class:GPUMatrix::Matrix	access:public	signature:(const int row_, const int col_)
+operator ()	include/Matrix.hpp	/^            const T operator () (const int row_, const int col_) const{	$/;"	f	class:GPUMatrix::Matrix	access:public	signature:(const int row_, const int col_) const
+operator *	include/Matrix.hpp	/^            const Matrix operator * (const Matrix &b) const{	$/;"	f	class:GPUMatrix::Matrix	access:public	signature:(const Matrix &b) const
+operator +	include/Matrix.hpp	/^            const Matrix operator + (const Matrix &b) const{	$/;"	f	class:GPUMatrix::Matrix	access:public	signature:(const Matrix &b) const
+operator -	include/Matrix.hpp	/^            const Matrix operator - (const Matrix &b) const{$/;"	f	class:GPUMatrix::Matrix	access:public	signature:(const Matrix &b) const
+operator <<	include/Matrix.hpp	/^            friend std::ostream& operator << (std::ostream& os, const Matrix<T> &b) {$/;"	f	class:GPUMatrix::Matrix	access:friend	signature:(std::ostream& os, const Matrix<T> &b)
+operator =	include/Matrix.hpp	/^            const Matrix& operator = (const Matrix &b) {$/;"	f	class:GPUMatrix::Matrix	access:public	signature:(const Matrix &b)
+print	include/Matrix.hpp	/^            void print() const{$/;"	f	class:GPUMatrix::Matrix	access:public	signature:() const
+printmatrix	test-suite/test.hpp	/^	template<typename T> static void printmatrix(T **&a, int row, int col) {$/;"	f	class:test	access:public	signature:(T **&a, int row, int col)
+return_address	test-suite/testing.cpp	/^TYPE * return_address(int row, int col) {$/;"	f	signature:(int row, int col)
+rows	include/Matrix.hpp	/^            const int rows() const{$/;"	f	class:GPUMatrix::Matrix	access:public	signature:() const
+subtract	include/Matrix.hpp	/^            const Matrix subtract(const Matrix &a, const Matrix &b) const{$/;"	f	class:GPUMatrix::Matrix	access:public	signature:(const Matrix &a, const Matrix &b) const
+subtract2d	test-suite/test.hpp	/^	template<typename T> static void subtract2d(T **&a, T **&b, T **&c, int row, int col) {$/;"	f	class:test	access:public	signature:(T **&a, T **&b, T **&c, int row, int col)
+test	test-suite/test.hpp	/^	test(){$/;"	f	class:test	access:public	signature:()
+test	test-suite/test.hpp	/^class test{$/;"	c
+test::add2d	test-suite/test.hpp	/^	template<typename T> static void add2d(T **&a, T **&b, T **&c, int row, int col) {$/;"	f	class:test	access:public	signature:(T **&a, T **&b, T **&c, int row, int col)
+test::compare	test-suite/test.hpp	/^	template<typename T> static bool compare(GPUMatrix::Matrix<T> &a, T** &b, int row, int col, double tol){$/;"	f	class:test	access:public	signature:(GPUMatrix::Matrix<T> &a, T** &b, int row, int col, double tol)
+test::dealloc2d	test-suite/test.hpp	/^	template<typename T> static void dealloc2d(T **&a, int row, int col) {$/;"	f	class:test	access:public	signature:(T **&a, int row, int col)
+test::inittestMatrix	test-suite/test.hpp	/^	template<typename T> static void inittestMatrix(GPUMatrix::Matrix<T> &a){$/;"	f	class:test	access:public	signature:(GPUMatrix::Matrix<T> &a)
+test::inittestmatrix	test-suite/test.hpp	/^	template<typename T> static void inittestmatrix(T **&a, int row, int col) {$/;"	f	class:test	access:public	signature:(T **&a, int row, int col)
+test::malloc2d	test-suite/test.hpp	/^	template<typename T> static void malloc2d(T **&a, int row, int col) {$/;"	f	class:test	access:public	signature:(T **&a, int row, int col)
+test::printmatrix	test-suite/test.hpp	/^	template<typename T> static void printmatrix(T **&a, int row, int col) {$/;"	f	class:test	access:public	signature:(T **&a, int row, int col)
+test::subtract2d	test-suite/test.hpp	/^	template<typename T> static void subtract2d(T **&a, T **&b, T **&c, int row, int col) {$/;"	f	class:test	access:public	signature:(T **&a, T **&b, T **&c, int row, int col)
+test::test	test-suite/test.hpp	/^	test(){$/;"	f	class:test	access:public	signature:()
+type	include/Matrix.hpp	/^            const std::string type = "Matrix";		$/;"	m	class:GPUMatrix::Matrix	access:private
+~Matrix	include/Matrix.hpp	/^            ~Matrix(){$/;"	f	class:GPUMatrix::Matrix	access:public	signature:()
